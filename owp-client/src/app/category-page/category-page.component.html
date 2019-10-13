@@ -11,13 +11,6 @@
 <div class="card-content">
 
   <div class="collection">
-    <a href="#!" class="collection-item">Категория 1</a>
-    <a href="#!" class="collection-item">Категория 1</a>
-    <a href="#!" class="collection-item">Категория 1</a>
-    <a href="#!" class="collection-item">Категория 1</a>
-    <a href="#!" class="collection-item">Категория 1</a>
-    <a href="#!" class="collection-item active">Категория 2</a>
-    <a href="#!" class="collection-item">Категория 1</a>
-    <a href="#!" class="collection-item">Категория 1</a>
+    <a *ngFor="let category of categories"  class="collection-item">{{category.name}}</a>
   </div>
 </div>

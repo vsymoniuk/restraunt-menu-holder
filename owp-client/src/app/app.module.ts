@@ -1,13 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SiteLayoutComponent } from './layouts/site-layout/site-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { TempUserComponent } from './temp-user/temp-user.component';
-import { TablesComponent } from './tables/tables.component';
 import { CategoryPageComponent } from './category-page/category-page.component';
+import { TablePageComponent } from './table-page/table-page.component';
 
 
 @NgModule({
@@ -16,14 +17,15 @@ import { CategoryPageComponent } from './category-page/category-page.component';
     SiteLayoutComponent,
     AuthLayoutComponent,
     TempUserComponent,
-    TablesComponent,
-    CategoryPageComponent
+    CategoryPageComponent,
+    TablePageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

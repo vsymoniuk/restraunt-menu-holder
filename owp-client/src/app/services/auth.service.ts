@@ -8,10 +8,10 @@ import { User } from '../interfaces';
 })
 
 export class AuthService {
+    
     constructor(private http: HttpClient){}
 
     getAll(): Observable<User[]> {
-        console.log(this.http.get<User[]>('api/auth'))
-        return this.http.get<User[]>('api/auth')
+        return this.http.get<User[]>('/api/auth')
     }
 }

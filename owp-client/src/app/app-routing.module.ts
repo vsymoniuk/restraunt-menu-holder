@@ -3,15 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { SiteLayoutComponent } from './layouts/site-layout/site-layout.component';
 import { TempUserComponent } from './temp-user/temp-user.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { TablesComponent } from './tables/tables.component';
 import { CategoryPageComponent } from './category-page/category-page.component';
+import { TablePageComponent } from './table-page/table-page.component';
 
 
 const routes: Routes = [
   {
     path: '', component: SiteLayoutComponent, children: [
       {path: 'users', component: TempUserComponent},
-      {path: 'tables', component: TablesComponent},
+      {path: 'tables', component: TablePageComponent},
       {path: 'categories', component: CategoryPageComponent}
     ]
   },

@@ -9,21 +9,20 @@ import { AuthService } from '../services/auth.service';
 })
 export class TempUserComponent implements OnInit {
 
-  // users: User[] = []
+  users: User[] = []
 
-  constructor(/*private authService: AuthService*/) { }
-
+  constructor(private authService: AuthService) {
+  }
+  
   ngOnInit() {
-
-    // this.users$ = this.authService.getAll()
-    // this.authService.getAll().subscribe(
-    //   users => {
-    //     this.users = users
-    //     console.log(users);
-    //   },
-    //   error => console.log(error.message ? error.message : error)
-
-    // )
+    
+    this.authService.getAll().subscribe(
+      users => {
+        this.users = users
+      },
+      error => console.log(error.message ? error.message : error)
+    )
+    
   }
 
 }

@@ -12,3 +12,10 @@ export interface User {
     cost: number
     _id?: string
   }
+
+  export interface Category {
+    name: string
+    imageSrc?: string
+    user?: string
+    _id?: string
+  }
