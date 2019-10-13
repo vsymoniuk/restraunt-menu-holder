@@ -14,3 +14,11 @@ footer {
   clear: both;
   width: 100vw;
 }
+
+ .content
+ {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px
+ }

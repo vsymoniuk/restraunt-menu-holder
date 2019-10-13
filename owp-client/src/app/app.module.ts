@@ -6,19 +6,22 @@ import { AppComponent } from './app.component';
 import { SiteLayoutComponent } from './layouts/site-layout/site-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { TempUserComponent } from './temp-user/temp-user.component';
-import { RoutingModule } from './routing.module';
+import { TablesComponent } from './tables/tables.component';
+import { CategoryPageComponent } from './category-page/category-page.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     SiteLayoutComponent,
     AuthLayoutComponent,
-    TempUserComponent
+    TempUserComponent,
+    TablesComponent,
+    CategoryPageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    RoutingModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

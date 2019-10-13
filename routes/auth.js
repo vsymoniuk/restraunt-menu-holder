@@ -6,6 +6,6 @@ router.post('/login', controller.login)
 
 router.post('/register', controller.register)
 
-router.get('/temp/', controller.tempGetAll)
+router.get('/', controller.tempGetAll)
 
 module.exports = router

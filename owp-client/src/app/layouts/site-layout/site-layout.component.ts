@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-site-layout',
@@ -9,10 +11,12 @@ import { Router } from '@angular/router';
 export class SiteLayoutComponent implements OnInit {
 
   links = [
-    {url: '/users', name: 'Users'},
-    {url: '/categories', name: 'Categories'},
-    {url: '/tables', name: 'Tables'}
+    {url: '/users', name: 'Користувачі'},
+    {url: '/categories', name: 'Асортимент '},
+    {url: '/tables', name: 'Столики'}
   ]
+
+
 
   constructor(private router: Router) { }
 

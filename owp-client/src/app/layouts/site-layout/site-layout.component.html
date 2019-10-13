@@ -1,10 +1,10 @@
 <nav>
   <div class="nav-wrapper">
-    <a  class="brand-logo">Online restraunt host </a>
+    <a  routerLink="/" class="brand-logo">Online restraunt host </a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li *ngFor="let link of links" routerLinkActive="active">
         <a
-          [routerLink]="link.url"
+          [routerLink]="[link.url]"
         >
         {{link.name}}
         </a>
