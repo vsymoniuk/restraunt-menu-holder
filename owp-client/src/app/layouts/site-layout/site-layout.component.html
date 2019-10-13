@@ -1,0 +1,28 @@
+<nav>
+  <div class="nav-wrapper">
+    <a  class="brand-logo">Online restraunt host </a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li *ngFor="let link of links" routerLinkActive="active">
+        <a
+          [routerLink]="link.url"
+        >
+        {{link.name}}
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main class="content">
+  <router-outlet></router-outlet>
+</main>
+
+
+<footer class="page-footer">  
+  <div class="footer-copyright">
+    <div class="container">
+      © 2019-2019 ORH, All rights reserved
+      <a class="grey-text text-lighten-4 right" href="https://t.me/leakerman" target="_blank">Support</a>
+    </div>
+  </div>
+</footer>

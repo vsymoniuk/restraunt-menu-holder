@@ -1,0 +1,48 @@
+const Table = require('../models/Table')
+const User = require('../models/User')
+
+module.exports.getAll = async function(req, res) {
+    try {
+        //@todo make to show admin`s tables
+        const tables = await Table.find()
+        res.status(200).json(tables)
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message ? error.message : error
+        })
+    }
+}
+
+module.exports.create = async function(req, res) {
+    try {
+
+        const user = await User.findOne({email: "empty"})
+
+        const table = new Table({
+            places: req.body.places,
+            //@todo make to show admin as user
+            waiter: user.id,
+            customer: user.id
+        })
+
+        await table.save()
+        res.status(201).json(table)
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message ? error.message : error
+        })
+    }
+}
+
+module.exports.getById = function(req, res) {
+}
+
+module.exports.delete = function(req, res) {
+}
+
+module.exports.update = function(req, res) {
+}
