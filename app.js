@@ -14,13 +14,16 @@ if (process.env.NODE_ENV === 'production') {
     )
   })
 
-  links = {mongoURI: process.env.MONGO_URI}
+  // links = {mongoURI: process.env.MONGO_URI}
 
-} else {
+} 
+// else {
 
-  links = require('./links')
-  
-}
+//   links = require('./links')
+
+// }
+
+links = require('./links')
 
 const express = require('express')
 const app = express()
