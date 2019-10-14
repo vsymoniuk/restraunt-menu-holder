@@ -40,7 +40,20 @@ module.exports.create = async function(req, res) {
     }
 }
 
-module.exports.delete = function(req, res) {
+module.exports.delete = async function(req, res) {
+    try {
+
+        await Position.remove({_id: req.params.id})
+        res.status(200).json({
+            message: 'Position was deleted'
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message ? error.message : error
+        })
+    }
 }
 
 module.exports.update = function(req, res) {

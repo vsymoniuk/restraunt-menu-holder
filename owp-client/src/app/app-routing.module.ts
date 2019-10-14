@@ -5,6 +5,7 @@ import { TempUserComponent } from './temp-user/temp-user.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { CategoryPageComponent } from './category-page/category-page.component';
 import { TablePageComponent } from './table-page/table-page.component';
+import { CategoryPositionsPageComponent } from './category-page/category-positions-page/category-positions-page.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
     path: '', component: SiteLayoutComponent, children: [
       {path: 'users', component: TempUserComponent},
       {path: 'tables', component: TablePageComponent},
-      {path: 'categories', component: CategoryPageComponent}
+      {path: 'categories', component: CategoryPageComponent},
+      {path: 'categories/:id', component: CategoryPositionsPageComponent}
     ]
   },
   {

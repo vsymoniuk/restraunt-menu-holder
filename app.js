@@ -1,8 +1,31 @@
+// hosting
+
+const path = require('path')
+let links
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('owp-client/dist/owp-client'))
+
+  app.get('*', (req, res) => {
+    res.sendFile(
+      path.resolve(
+        __dirname, 'owp-client', 'dist', 'owp-client', 'index.html'
+      )
+    )
+  })
+
+  links = {mongoURI: process.env.MONGO_URI}
+
+} else {
+
+  links = require('./links')
+  
+}
+
 const express = require('express')
 const app = express()
 
 const mongoose = require('mongoose')
-const links = require('./links')
 
 mongoose.connect(links.mongoURI)
   .then(() => console.log('Mongo connected.'))
@@ -35,20 +58,6 @@ app.use('/api/table', tableRoutes)
 
 app.use('/uploads', express.static('uploads'))
 
-// hosting
-
-const path = require('path')
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('owp-client/dist/owp-client'))
-
-  app.get('*', (req, res) => {
-    res.sendFile(
-      path.resolve(
-        __dirname, 'owp-client', 'dist', 'owp-client', 'index.html'
-      )
-    )
-  })
-}
 
 // Serve only the static files form the dist directory
 // app.use(express.static('owp-client/dist/owp-client'));

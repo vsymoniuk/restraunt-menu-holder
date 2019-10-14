@@ -1,5 +1,6 @@
 const Category = require('../models/Category')
 const User = require('../models/User')
+const Position = require('../models/Position')
 
 module.exports.getAll = async function (req, res) {
     try {
@@ -37,8 +38,35 @@ module.exports.create = async function (req, res) {
     }
 }
 
-module.exports.getById = function (req, res) {}
+module.exports.getById = async function (req, res) {
+    try {
+        //@todo make to show admin`s categories
+        const category = await Category.findById( req.params.id)
+        res.status(200).json(category)
 
-module.exports.delete = function (req, res) {}
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message ? error.message : error
+        })
+    }
+}
+
+module.exports.delete = async function (req, res) {
+    try {
+
+        await Category.remove({_id: req.params.id})
+        await Position.remove({category: req.params.id})
+        res.status(200).json({
+            message: 'Category was deleted'
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message ? error.message : error
+        })
+    }
+}
 
 module.exports.update = function (req, res) {}

@@ -9,6 +9,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { TempUserComponent } from './temp-user/temp-user.component';
 import { CategoryPageComponent } from './category-page/category-page.component';
 import { TablePageComponent } from './table-page/table-page.component';
+import { CategoryPositionsPageComponent } from './category-page/category-positions-page/category-positions-page.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { TablePageComponent } from './table-page/table-page.component';
     AuthLayoutComponent,
     TempUserComponent,
     CategoryPageComponent,
-    TablePageComponent
+    TablePageComponent,
+    CategoryPositionsPageComponent
   ],
   imports: [
     BrowserModule,
