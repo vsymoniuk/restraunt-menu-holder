@@ -5,8 +5,6 @@ module.exports.login = function(req, res) {
 
 module.exports.register = async function(req, res) {
     
-    console.log(req.body.email)
-    console.log(req.body.password);
     
     const user = new User({
         email: req.body.email,
@@ -22,7 +20,6 @@ module.exports.tempGetAll = async function(req, res) {
 
         const users = await User.find()
         res.status(200).json(users)
-        console.log(users)
         
 
     } catch (error) {

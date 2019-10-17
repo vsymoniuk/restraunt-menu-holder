@@ -3,10 +3,10 @@ const moment = require('moment')
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, 'uploads')
+    cb(null, 'uploads/')
   },
   filename(req, file, cb) {
-    const date = moment().format('DD/MM/YYYY-HH:mm:ss-SSS')
+    const date = moment().format('DDMMYYYY-HHmmss_SSS')
     cb(null, `${date}-${file.originalname}`)
   }
 })
@@ -20,7 +20,7 @@ const fileFilter = (req, file, cb) => {
 }
 
 const limits = {
-  fileSize: 1024 * 1024 * 10
+  fileSize: 1024 * 1024 * 5
 }
 
 

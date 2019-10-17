@@ -19,7 +19,8 @@
   {
       float: bottom;
       position: relative;
-      top: 15px
+      top: 15px;
+      cursor: pointer;
   }
 
   span
@@ -27,3 +28,9 @@
     position: relative;
     top: 15px;
   }
+
+  .input-field i 
+  {
+    cursor: pointer;
+  }
+

@@ -2,7 +2,7 @@
   width: 1200px
 }
 
-button {
+.col button {
   float: bottom ;
   position: relative;
   top: 40px
@@ -26,4 +26,17 @@ span
 {
   position: relative;
   top: 15px;
+}
+
+.modal
+{
+  height: 1200;
+}
+
+.modal-content button 
+{
+  margin-top: 10px;
+  /* position: fixed; */
+  /* float: left; */
+
 }

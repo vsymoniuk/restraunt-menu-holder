@@ -17,30 +17,63 @@
       </div>
     </div> -->
     <div class="col s12 m2">
-      <button class="btn grey darken-1">Додати категорію</button>
+      <button class="btn grey darken-1" (click)="onAddCategory()">Додати категорію</button>
     </div>
   </div>
 </div>
-
-
-
 
 <div class="card-content">
   <div class="collection">
-    <!-- <a *ngFor="let category of categories" [routerLink]="['/categories', category._id]" class="collection-item"> -->
-    <a *ngFor="let category of categories" (click)="redirectTo(category._id)" class="collection-item"></a>
-    <div class="row">
-      <div class="col s12 m11">
-        <span>
+    <a *ngFor="let category of categories" [routerLink]="['/categories', category._id]"
+    (click)="getSelectedCategory(category)" class="collection-item">
+      <div class="row">
+        <span class="col s12 m10">
           {{category.name}}
         </span>
-      </div>
-      <div class="col s12 m1">
-        <span>
-          <i class="material-icons" (click)="onDeleteCategory($event, category)">delete</i>
+        <span class="col s12 m1" (click)="onUpdateCategory($event, category)">
+          Редагувати
+        </span>
+        <span class="material-icons col s12 m1" (click)="onDeleteCategory($event, category)">
+          delete
         </span>
       </div>
-    </div>
     </a>
   </div>
 </div>
+
+<form [formGroup]="form" (ngSubmit)="onFormSubmit()">
+  <div class="modal" #modal>
+    <div class="modal-content">
+
+      <div class="col s12 l6">
+        <h4 class="mb1"> {{isNew ? 'Створити' : 'Редагувати'}} категорію</h4>
+        <div class="input-field">
+          <input type="text" id="name" formControlName="name">
+          <label for="name">Назва</label>
+          <span class="helper-text red-text" *ngIf="form.get('name').invalid && form.get('name').touched">
+            <span *ngIf="form.get('name').errors['required']">
+              Ім'я не може бути пустим 
+            </span>
+          </span>
+        </div>
+        <div>
+          <input type="file" hidden="true" class="display-none" (change)="onFileUpload($event)" #inputFile>
+          <button (click)="triggerClick()" type="button" class="waves-effect waves-light btn orange lighten-2 mb2" [disabled]="form.disabled" >  
+            <i class="material-icons left">backup</i>
+            Завантажити зображння
+          </button>
+        </div>
+      </div>
+
+      <div class="col s12 l6 center">
+        <img *ngIf="imagePreview" [src]="imagePreview" class="responsive-img h200">
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <a (click)="onCancel()" class="modal-action waves-effect waves-black btn-flat">Скасувати</a>
+      <button type="submit" class="modal-action btn waves-effect" [disabled]="form.disabled || form.invalid">Зберегти {{isNew ? '' : 'зміни'}}</button>
+    </div>
+  </div>
+</form>

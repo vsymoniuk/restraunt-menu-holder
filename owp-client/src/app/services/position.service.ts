@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import {HttpClient} from '@angular/common/http'
+import {HttpClient, HttpParams} from '@angular/common/http'
 import { Position, Message } from '../interfaces'
 import { Observable } from "rxjs";
  
@@ -11,8 +11,12 @@ export class PositionService {
 
     constructor(private http: HttpClient){}
 
-    getByCategoryId(categoryId: string): Observable<Position[]> {
-       return this.http.get<Position[]>(`/api/position/${categoryId}`)
+    getByCategoryId(params: any = {}): Observable<Position[]> {
+       return this.http.get<Position[]>(`/api/position/${params.id}`, {
+        params: new HttpParams({
+            fromObject: params
+        })
+    })
     }
 
     delete(position: Position) : Observable<Message> {
@@ -20,3 +24,6 @@ export class PositionService {
     }
 
 }
+
+
+
