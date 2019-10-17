@@ -114,11 +114,15 @@ this.fetch()
 
     if (this.isNew) {
       //create
+      console.log("saaas bc")
       observable$ = this.categoryService.create(this.form.value.name, this.image)
+      console.log("saaas ac")
     } else {
       //update
       observable$ = this.categoryService.update(this.categoryId, this.form.value.name, this.image)
     }
+
+    console.log("saaas bs")
 
     observable$.subscribe(
       category => {
@@ -134,6 +138,8 @@ this.fetch()
         this.form.enable()
       }
     )
+
+    console.log("saaas as")
 
     this.modal.close()
     // this.fetch()
