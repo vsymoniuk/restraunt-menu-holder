@@ -18,6 +18,7 @@
 .page-name
 {
     float: bottom;
+    float: left;
     position: relative;
     top: 15px
 }

@@ -12,13 +12,7 @@ const positionRoutes = require('./routes/position')
 const tableRoutes = require('./routes/table')
 
 const links = require('./links')
-let mongoLink
-
-if (process.env.NODE_ENV === 'production') {
-  mongoLink = process.env.MONGO_URI
-} else {
-  mongoLink = links.mongoURI
-}
+const mongoLink = process.env["MONGO_URI"] || links.mongoURI
 
 mongoose.connect(mongoLink)
   .then(() => console.log('Mongo connected.'))

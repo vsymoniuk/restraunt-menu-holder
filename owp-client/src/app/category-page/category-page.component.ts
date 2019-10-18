@@ -76,14 +76,14 @@ this.fetch()
     }
   }
 
-  onUpdateCategory(event: any, category: Category) {
+  onUpdateCategory(event: Event, category: Category) {
     this.modal.open()
     this.imagePreview = category.imageSrc
     this.categoryId = this.categoryIdPretendent
 
+    event.stopPropagation()
 
-    // event.stopPropagation()
-    event.preventDefault()
+    // event.preventDefault()
 
     this.form.patchValue({
       name: category.name
@@ -114,20 +114,19 @@ this.fetch()
 
     if (this.isNew) {
       //create
-      console.log("saaas bc")
+
       observable$ = this.categoryService.create(this.form.value.name, this.image)
-      console.log("saaas ac")
+
     } else {
       //update
       observable$ = this.categoryService.update(this.categoryId, this.form.value.name, this.image)
     }
 
-    console.log("saaas bs")
 
     observable$.subscribe(
       category => {
         this.form.disable()
-        console.log(category);
+        this.categories.push(category)
         
       },
       error => {
@@ -139,7 +138,6 @@ this.fetch()
       }
     )
 
-    console.log("saaas as")
 
     this.modal.close()
     // this.fetch()
@@ -164,7 +162,8 @@ this.fetch()
 
   getSelectedCategory(category: Category) {
     this.categoryIdPretendent = category._id
-    // this.router.navigate([`/categories${category._id}`])
+    // const link = '/categories'+category._id
+    this.router.navigate([`/categories/${category._id}`])
   }
 
 }
