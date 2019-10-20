@@ -1,1 +1,19 @@
-<p>auth-layout works!</p>
+<nav>
+    <div class="nav-wrapper">
+      <a  routerLink="/" class="brand-logo">Online restraunt host </a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li *ngFor="let link of links" routerLinkActive="active">
+          <a
+            [routerLink]="[link.url]"
+          >
+          {{link.name}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+  

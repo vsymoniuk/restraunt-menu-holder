@@ -10,6 +10,10 @@ const orderSchema = new Schema({
         type: Number,
         required: true
     },
+    isActive: {
+        type: Boolean,
+        default: true
+    },
     positionsList: [
         {
             name: {
@@ -23,7 +27,11 @@ const orderSchema = new Schema({
             }
         }
     ],
-    user: {
+    waiter: {
+        ref: 'users',
+        type: Schema.Types.ObjectId
+    },
+    customer: {
         ref: 'users',
         type: Schema.Types.ObjectId
     }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-layout',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthLayoutComponent implements OnInit {
 
-  constructor() { }
+  links = [
+    {url: '/login', name: 'Вхід '},
+    {url: '/register', name: 'Реєстрація'}
+  ]
+
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }

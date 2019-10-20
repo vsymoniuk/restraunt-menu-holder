@@ -33,7 +33,8 @@ const userSchema = new Schema( {
                 type: Schema.Types.ObjectId
             }
         }
-    ]
+    ],
+    default: []
 } )
  
 module.exports = mongoose.model('users', userSchema)

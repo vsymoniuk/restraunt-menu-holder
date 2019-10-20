@@ -29,14 +29,6 @@ export class CategoryService {
         }
         formData.append('name', name)
 
-        // console.log(name)
-        // console.log("IMG:")
-        // console.log(image)
-        // console.log("IMG:")
-        // // console.log(image.name)
-        // console.log("IMG:")
-        // console.log("{{{{{{{{" , formData.get('name') , "}}}}}}}}}}}")
-        // console.log(typeof this.http.post<Category>('/api/category', formData))
         
         return this.http.post<Category>('/api/category', formData)
     }
@@ -49,7 +41,7 @@ export class CategoryService {
         }
         formData.append('name', name)
 
-        return this.http.patch<Category>(`/api/category${id}`, formData)
+        return this.http.patch<Category>(`/api/category/${id}`, formData)
     }
 
     delete(category: Category): Observable<Message> {

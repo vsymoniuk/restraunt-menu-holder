@@ -25,20 +25,19 @@ export class CategoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
   image: File
 
   imagePreview = ''
-  categoryIdPretendent: string
   categoryId: string
 
 
   constructor(private categoryService: CategoryService,
-              private formBuilder: FormBuilder,
-              private router: Router) { }
+    private formBuilder: FormBuilder,
+    private router: Router) { }
 
   ngOnInit() {
 
     this.form = new FormGroup({
       name: new FormControl(null, Validators.required)
     })
-this.fetch()
+    this.fetch()
   }
 
   private fetch() {
@@ -46,7 +45,7 @@ this.fetch()
       categories => {
         this.categories = categories
       },
-      error => console.log(error.message ? error.message : error)
+      error => MaterializeService.toast(error.message ? error.message : error)
     )
   }
 
@@ -69,17 +68,20 @@ this.fetch()
       this.categoryService.delete(category).subscribe(
         response => {
           const index = this.categories.findIndex(c => c._id === category._id)
+          MaterializeService.toast(`Категорія "${this.categories[index].name}" була успішно видаленa`)
           this.categories.splice(index, 1)
         },
-        error => console.log(error.message ? error.message : error)
+        error => MaterializeService.toast(error.message ? error.message : error)
       )
     }
   }
 
   onUpdateCategory(event: Event, category: Category) {
+    this.form.enable()
     this.modal.open()
     this.imagePreview = category.imageSrc
-    this.categoryId = this.categoryIdPretendent
+    this.categoryId = category._id
+
 
     event.stopPropagation()
 
@@ -90,15 +92,15 @@ this.fetch()
     })
 
     this.isNew = false
-    this.categoryIdPretendent = ''
   }
 
   onAddCategory() {
 
-    this.form.reset({name: ''})
+    this.form.reset({ name: '' })
     this.imagePreview = ''
 
     this.isNew = true
+    this.form.enable()
     this.modal.open()
 
   }
@@ -110,7 +112,7 @@ this.fetch()
   onFormSubmit() {
 
     let observable$
-    this.form.disable
+    this.form.disable()
 
     if (this.isNew) {
       //create
@@ -125,22 +127,24 @@ this.fetch()
 
     observable$.subscribe(
       category => {
-        this.form.disable()
-        this.categories.push(category)
-        
+        // this.form.disable()
+        if (this.isNew) {
+          MaterializeService.toast('Нова категорія буа створена')
+          this.categories.push(category)
+        } else {
+          const index = this.categories.findIndex(c => c._id === category._id)
+          this.categories[index] = category
+          MaterializeService.toast(`Категорію було успішно відредаговано`)
+        }
       },
       error => {
-        console.log({
-          success: false,
-          message: error.message ? error.message : error
-        })
+        MaterializeService.toast(error.message ? error.message : error)
         this.form.enable()
       }
     )
 
-
+    
     this.modal.close()
-    // this.fetch()
   }
 
   triggerClick() {
@@ -161,9 +165,8 @@ this.fetch()
   }
 
   getSelectedCategory(category: Category) {
-    this.categoryIdPretendent = category._id
-    // const link = '/categories'+category._id
     this.router.navigate([`/categories/${category._id}`])
+    MaterializeService.updateTextInputs()
   }
 
 }

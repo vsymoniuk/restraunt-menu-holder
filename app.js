@@ -4,6 +4,7 @@ const express = require('express')
 const path = require('path')
 const app = express()
 
+const passport = require('passport')
 
 const authRoutes = require('./routes/auth')
 const categoryRoutes = require('./routes/category')
@@ -11,23 +12,26 @@ const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
 const tableRoutes = require('./routes/table')
 
-const links = require('./links')
-const mongoLink = process.env["MONGO_URI"] || links.mongoURI
-
-mongoose.connect(mongoLink)
-  .then(() => console.log('Mongo connected.'))
-  .catch(error => console.log(error))
+const config = require('./config')
+const mongoLink = process.env["MONGO_URI"] || config.mongoURI
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
+mongoose.connect(mongoLink)
+  .then(() => console.log('Mongo connected.'))
+  .catch(error => console.log(error))
+
+
 app.use(bodyParser.urlencoded({
   extended: true
 }))
 app.use(bodyParser.json())
 
+app.use(passport.initialize())
+require('./passport')(passport)
 
 app.use(require('morgan')('dev'))
 app.use(require('cors')())

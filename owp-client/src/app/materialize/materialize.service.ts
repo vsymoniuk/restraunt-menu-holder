@@ -11,7 +11,15 @@ export interface Modal {
 export class MaterializeService {
 
     static initModal(ref: ElementRef) {
-       return M.Modal.init(ref.nativeElement)
+        return M.Modal.init(ref.nativeElement)
+    }
+
+    static updateTextInputs() {
+        M.updateTextFields()
+    }
+
+    static toast(message: string) {
+        M.toast({ html: message })
     }
 
 }
