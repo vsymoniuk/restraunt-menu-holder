@@ -12,16 +12,23 @@ export class AuthGuard  implements CanActivate, CanActivateChild{
 
     constructor(private authService: AuthService,
                 private router: Router) {}
-
+ 
+    
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         if(this.authService.isAuthenticated()) {
+            console.log(this.authService.getToken(), 'guard1');
             return of(true)
-        } else {
-            this.router.navigate(['/login'], { queryParams: { accesDenied: true } } )
+        } else { 
             MaterializeService.toast('Not so fast')
+            this.router.navigate(['login'],{
+                queryParams: {
+                    accessDenied: true
+                }
+            })
             return of(false)
         }
-    }   
+        
+    }
     
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         return this.canActivate(route, state)

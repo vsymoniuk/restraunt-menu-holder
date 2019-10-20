@@ -20,6 +20,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.authService.logout()
     this.form = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)])
@@ -31,32 +32,26 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       } else if (params['accesDenied']) {
         MaterializeService.toast('Для початку роботи, пройдіть авторизацію.')
       } else if (params['sessionExpired']) {
-        MaterializeService.toast('Поточна сесія завершилась. Для продовження пройдіть повторну аутентифікацію ')
+        MaterializeService.toast('Увійдіть, будь ласка, знову')
       }
     })
   }
 
   ngOnDestroy() {
-    if (this.sub)
-      this.sub.unsubscribe()
+    if (this.sub) this.sub.unsubscribe()
   }
+
 
   onSubmit() {
     this.form.disable()
 
-    // const user = {
-    //   email: this.form.value.email,
-    //   password: this.form.value.password
-    // }
-
     this.sub = this.authService.login(this.form.value).subscribe(
-      () => {
-        this.router.navigate(['/categories'])
-      },
+      () => this.router.navigate(['/categories']),
       error => {
-        this.form.enable()
         MaterializeService.toast(error.error.message)
+        this.form.enable()
       }
     )
   }
+
 }

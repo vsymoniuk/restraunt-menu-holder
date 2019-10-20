@@ -1,12 +1,13 @@
 <nav>
   <div class="nav-wrapper">
-    <a  routerLink="/overview" class="brand-logo">Online restraunt host </a>
+    <a class="brand-logo">Online restraunt host </a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li *ngFor="let link of links" routerLinkActive="active">
-        <a
-          [routerLink]="[link.url]"
-        >
+      <li *ngFor="let link of links">
+        <a [routerLink]="[link.url]">
         {{link.name}}
+        <div *ngIf="link.url==='/logout'">
+          <div (click)="logout($event)"></div>
+        </div>
         </a>
       </li>
     </ul>

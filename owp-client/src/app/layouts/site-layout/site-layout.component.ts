@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 
-
 @Component({
   selector: 'app-site-layout',
   templateUrl: './site-layout.component.html',
@@ -11,15 +10,20 @@ import { Router } from '@angular/router';
 export class SiteLayoutComponent implements OnInit {
 
   links = [
-    {url: '/categories', name: 'Асортимент '},
-    {url: '/tables', name: 'Столики'}
+    { url: '/categories', name: 'Асортимент ' },
+    { url: '/tables', name: 'Столики' },
+    { url: '', name: 'Вихід' }
   ]
 
 
-
-  constructor(private router: Router) { }
+  constructor( private router: Router) { }
 
   ngOnInit() {
+  }
+
+  logout(event: Event) {
+    event.preventDefault()
+    this.router.navigate(['/login'])
   }
 
 }
