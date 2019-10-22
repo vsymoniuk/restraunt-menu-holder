@@ -22,8 +22,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.authService.logout()
     this.form = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(8)])
+      email: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required])
     })
 
     this.route.queryParams.subscribe((params: Params) => {
@@ -46,12 +46,15 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.form.disable()
 
     this.sub = this.authService.login(this.form.value).subscribe(
-      () => this.router.navigate(['/categories']),
+      () => {
+        this.router.navigate(['/tables'])
+      },
       error => {
         MaterializeService.toast(error.error.message)
         this.form.enable()
       }
     )
+
   }
 
 }

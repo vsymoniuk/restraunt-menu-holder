@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -8,17 +9,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./site-layout.component.css']
 })
 export class SiteLayoutComponent implements OnInit {
+  constructor(private router: Router,
+    private authService: AuthService) { }
 
   links = [
-    { url: '/categories', name: 'Асортимент ' },
+
     { url: '/tables', name: 'Столики' },
     { url: '', name: 'Вихід' }
+
   ]
 
 
-  constructor( private router: Router) { }
 
   ngOnInit() {
+    if (this.authService.getUserData().role === 'admin') {
+      this.links.push({ url: '/categories', name: 'Редгуання асортименту' })
+    }
   }
 
   logout(event: Event) {

@@ -23,9 +23,16 @@ module.exports.login = async function (req, res) {
         expiresIn: 60 * 60
       })
 
-      res.status(200).json({
-        token: `Bearer ${token}`
-      })
+      const decoded = jwt.decode(token)
+      const response = {
+        token: `Bearer ${token}`,
+        role: decoded.role
+      }
+
+      console.log(response , 'response');
+      
+
+      res.status(200).json(response)
 
     } else {
       res.status(401).json({
@@ -44,6 +51,12 @@ module.exports.login = async function (req, res) {
 }
 
 module.exports.register = async function (req, res) {
+
+  if (req.body.email === '') {
+    throw 'email can not be empty'
+  } else if (req.body.password === '') {
+    throw 'password can not be empty'
+  }
 
   const futureUser = await User.findOne({
     email: req.body.email
@@ -67,7 +80,7 @@ module.exports.register = async function (req, res) {
 
       await user.save()
       res.status(201).json(user)
-      
+
     } catch (error) {
       res.status(500).json({
         success: false,
@@ -76,3 +89,19 @@ module.exports.register = async function (req, res) {
     }
   }
 }
+
+// module.exports.get = async function (req, res) {
+//   try {
+//     const user = await User.findById(req.user.id)
+//     res.status(200).json({
+//       role: user.role
+//     })
+//     console.log(user.role)
+
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: error.message ? error.message : error
+//     })
+//   }
+// }

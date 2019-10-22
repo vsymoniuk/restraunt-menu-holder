@@ -39,3 +39,8 @@ export interface Position {
 export interface Message {
   message: string
 }
+
+export interface LoginRes {
+  token: string
+  role: string
+}

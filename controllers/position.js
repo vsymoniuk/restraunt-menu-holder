@@ -21,13 +21,13 @@ module.exports.getByCategoryId = async function(req, res) {
 module.exports.create = async function(req, res) {
     try {
 
-        const user = await User.findOne({email: "empty"})
+        // const user = await User.findOne({email: "empty"})//
 
         const position = new Position({
             name: req.body.name,
             cost: req.body.cost,
             category: req.body.category,
-            user: user.id
+            user: req.user.id
         })
 
         await position.save()

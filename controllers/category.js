@@ -5,8 +5,9 @@ const Position = require('../models/Position')
 
 module.exports.getAll = async function (req, res) {
     try {
+        const user = await User.findOne({role: 'admin'})
         //@todo make to show admin`s categories
-        const categories = await Category.find()
+        const categories = await Category.find({user: user._id})
         res.status(200).json(categories)
 
     } catch (error) {
@@ -22,13 +23,13 @@ module.exports.create = async function (req, res) {
 
         if (!req.body.name) throw error
 
-        const user = await User.findOne({
-            email: "empty"
-        })
+        // const user = await User.findOne({
+        //     email: "empty"
+        // })
         const category = new Category({
             name: req.body.name,
             //@todo make to show admin`s
-            user: user.id,
+            user: req.user.id,
             imageSrc: req.file ? req.file.path : ''
         })
         await category.save()

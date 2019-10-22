@@ -18,13 +18,12 @@ module.exports.getAll = async function(req, res) {
 module.exports.create = async function(req, res) {
     try {
 
-        const user = await User.findOne({email: "empty"})
 
         const table = new Table({
             places: req.body.places,
             //@todo make to show admin as user
-            waiter: user.id,
-            customer: user.id
+            waiter: req.user.id,
+            customer: req.user.id
         })
 
         await table.save()

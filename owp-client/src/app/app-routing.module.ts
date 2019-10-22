@@ -8,6 +8,7 @@ import { CategoryPositionsPageComponent } from './category-page/category-positio
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { AuthGuard } from './auth.guard'
+import { AdminGuard } from './admin.guard';
 
 const routes: Routes = [
   {
@@ -20,8 +21,8 @@ const routes: Routes = [
   {
     path: '', component: SiteLayoutComponent, canActivate: [AuthGuard] ,children: [
       {path: 'tables', component: TablePageComponent},
-      {path: 'categories', component: CategoryPageComponent},
-      {path: 'categories/:id', component: CategoryPositionsPageComponent}
+      {path: 'categories', canActivate: [AdminGuard] , component: CategoryPageComponent},
+      {path: 'categories/:id', canActivate: [AdminGuard], component: CategoryPositionsPageComponent}
     ]
   }
 ];

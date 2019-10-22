@@ -4,6 +4,7 @@ import { Category } from '../interfaces';
 import { MaterializeService, Modal } from '../materialize/materialize.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -24,15 +25,19 @@ export class CategoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
   modal: Modal
   image: File
 
+  userRole = null
   imagePreview = ''
   categoryId: string
 
 
   constructor(private categoryService: CategoryService,
-    private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit() {
+    this.userRole = this.authService.getUserData().role
+    // console.log(this.authService.getUserData().role, ':role');
+    
 
     this.form = new FormGroup({
       name: new FormControl(null, Validators.required)
@@ -54,6 +59,7 @@ export class CategoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.userRole = null
     this.modal.destroy()
   }
 
