@@ -15,6 +15,7 @@ export class SiteLayoutComponent implements OnInit {
   links = [
 
     { url: '/tables', name: 'Столики' },
+    { url: '/history', name: 'Історія'},
     { url: '', name: 'Вихід' }
 
   ]
@@ -22,8 +23,26 @@ export class SiteLayoutComponent implements OnInit {
 
 
   ngOnInit() {
-    if (this.authService.getUserData().role === 'admin') {
-      this.links.push({ url: '/categories', name: 'Редгуання асортименту' })
+
+    const role = this.authService.getUserData().role
+
+    if (role === 'admin') {
+
+      this.links.unshift({ url: '/categories', name: 'Редгуання асортименту' })
+      this.links.unshift({ url: '/staff-register', name: 'Реєстрація персоналу' })
+
+    } else if (role === 'cook') {
+
+      
+
+    } else if (role === 'waiter') {
+
+      this.links.unshift({ url: '/order', name: 'Створити замовлення' })
+
+    } else if (role === 'customer') {
+
+      this.links.unshift({ url: '/order', name: 'Створити замовлення' })
+
     }
   }
 

@@ -21,8 +21,6 @@ module.exports.getByCategoryId = async function(req, res) {
 module.exports.create = async function(req, res) {
     try {
 
-        // const user = await User.findOne({email: "empty"})//
-
         const position = new Position({
             name: req.body.name,
             cost: req.body.cost,
@@ -32,6 +30,28 @@ module.exports.create = async function(req, res) {
 
         await position.save()
         res.status(201).json(position)
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message ? error.message : error
+        })
+    }
+}
+
+module.exports.update = async function(req, res) {
+    const updated = {
+        name: req.body.name,
+        cost: req.body.cost
+    }
+
+    try {
+        const position = await Position.findOneAndUpdate(
+            {_id: req.params.id},
+            {$set: updated},
+            {new: true}
+        )
+        res.status(200).json(position)
 
     } catch (error) {
         res.status(500).json({
@@ -57,5 +77,3 @@ module.exports.delete = async function(req, res) {
     }
 }
 
-module.exports.update = function(req, res) {
-}

@@ -6,13 +6,16 @@ import { TokenInterceptor } from './token.interceptor'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SiteLayoutComponent } from './layouts/site-layout/site-layout.component';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component'
-import { CategoryPageComponent } from './category-page/category-page.component';
-import { TablePageComponent } from './table-page/table-page.component';
-import { CategoryPositionsPageComponent } from './category-page/category-positions-page/category-positions-page.component';
-import { RegisterPageComponent } from './register-page/register-page.component';
-import { LoginPageComponent } from './login-page/login-page.component';
+import { SiteLayoutComponent } from './components/layouts/site-layout/site-layout.component';
+import { AuthLayoutComponent } from './components/layouts/auth-layout/auth-layout.component'
+import { CategoryPageComponent } from './components/category-page/category-page.component';
+import { TablePageComponent } from './components/table-page/table-page.component';
+import { CategoryPositionsPageComponent } from './components/category-page/category-positions-page/category-positions-page.component';
+import { RegisterPageComponent } from './components/register-page/register-page.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { OrderPageComponent } from './components/order-page/order-page.component';
+import { HistoryPageComponent } from './components/history-page/history-page.component';
+import { StaffRegisterPageComponent } from './components/staff-register-page/staff-register-page.component';
 
 
 @NgModule({
@@ -24,7 +27,10 @@ import { LoginPageComponent } from './login-page/login-page.component';
     TablePageComponent,
     CategoryPositionsPageComponent,
     RegisterPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    OrderPageComponent,
+    HistoryPageComponent,
+    StaffRegisterPageComponent
   ],
   imports: [
     BrowserModule,

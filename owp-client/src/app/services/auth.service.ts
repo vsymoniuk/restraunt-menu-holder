@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { User, LoginRes } from '../interfaces';
 import { tap } from 'rxjs/operators';
-import { MaterializeService } from '../materialize/materialize.service';
+import { MaterializeService } from './materialize.service';
 
 @Injectable({
     providedIn: 'root'

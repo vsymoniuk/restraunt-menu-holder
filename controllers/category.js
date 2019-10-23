@@ -43,6 +43,32 @@ module.exports.create = async function (req, res) {
     }
 }
 
+module.exports.update = async function (req, res) {
+
+    if (!req.body.name) throw error
+
+    const updated = {
+        name: req.body.name
+    }
+
+    if (req.file) {
+        updated.imageSrc = req.file.path
+    }
+
+    try {
+        const category = await Category.findOneAndUpdate(
+            {_id: req.params.id}, 
+            {$set: updated}, 
+            {new: true})
+        res.status(200).json(category)
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message ? error.message : error
+        })
+    }
+}
+
 module.exports.getById = async function (req, res) {
     try {
         //@todo make to show admin`s categories
@@ -69,29 +95,6 @@ module.exports.delete = async function (req, res) {
             message: 'Category was deleted'
         })
 
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message ? error.message : error
-        })
-    }
-}
-
-module.exports.update = async function (req, res) {
-    const updated = {
-        name: req.body.name
-    }
-
-    if (req.file) {
-        updated.imageSrc = req.file.path
-    }
-
-    try {
-        const category = await Category.findOneAndUpdate(
-            {_id: req.params.id}, 
-            {$set: updated}, 
-            {new: true})
-        res.status(200).json(category)
     } catch (error) {
         res.status(500).json({
             success: false,

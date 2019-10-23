@@ -34,7 +34,9 @@ export interface Position {
   category: string
   user?: string
   _id?: string
+  quantity?: number
 }
+
 
 export interface Message {
   message: string

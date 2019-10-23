@@ -1,8 +1,8 @@
 import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router'
 import { Observable, of } from 'rxjs';
 import {  Injectable } from '@angular/core';
-import { AuthService } from './services/auth.service'
-import { MaterializeService } from './materialize/materialize.service'
+import { AuthService } from '../services/auth.service'
+import { MaterializeService } from '../services/materialize.service'
 
 @Injectable({
     providedIn: 'root'

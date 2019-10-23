@@ -1,0 +1,49 @@
+.card-content {
+  width: 1200px
+}
+
+button {
+  float: bottom;
+  position: relative;
+  top: 40px
+    /* padding:  */
+}
+
+.input-field {
+  float: bottom;
+  position: relative;
+  top: 30px
+}
+
+.page-name {
+  float: bottom;
+  position: relative;
+  top: 15px;
+  cursor: pointer;
+}
+
+span {
+  position: relative;
+  top: 15px;
+}
+
+.input-field i {
+  cursor: pointer;
+}
+
+.modal {
+  height: 600;
+  width:  30%;
+}
+
+.modal-footer button {
+  /* margin-top: 10px; */
+  /* position: fixed; */
+  /* float: left; */
+  position: relative;
+  top: 5px
+}
+
+ .helper-text {
+   top: 1%
+ }

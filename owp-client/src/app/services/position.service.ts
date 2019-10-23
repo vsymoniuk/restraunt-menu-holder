@@ -23,6 +23,14 @@ export class PositionService {
         return this.http.delete<Message>(`/api/position/${position._id}`)
     }
 
+    create(position: Position): Observable<Position> {
+        return this.http.post<Position>('/api/position', position)
+    }
+
+    update(position: Position): Observable<Position> {
+        return this.http.patch<Position>(`/api/position/${position._id}`, position)
+    }
+
 }
 
 
