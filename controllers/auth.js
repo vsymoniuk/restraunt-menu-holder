@@ -29,9 +29,6 @@ module.exports.login = async function (req, res) {
         role: decoded.role
       }
 
-      console.log(response , 'response');
-      
-
       res.status(200).json(response)
 
     } else {
@@ -90,18 +87,15 @@ module.exports.register = async function (req, res) {
   }
 }
 
-// module.exports.get = async function (req, res) {
-//   try {
-//     const user = await User.findById(req.user.id)
-//     res.status(200).json({
-//       role: user.role
-//     })
-//     console.log(user.role)
+module.exports.getUsers = async function (req, res) {
+  try {
+    const users = await User.find({role: req.params.role})
+    res.status(200).json(users)
 
-//   } catch (error) {
-//     res.status(500).json({
-//       success: false,
-//       message: error.message ? error.message : error
-//     })
-//   }
-// }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message ? error.message : error
+    })
+  }
+}

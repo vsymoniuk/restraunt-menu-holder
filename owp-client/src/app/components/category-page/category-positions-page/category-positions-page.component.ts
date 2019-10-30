@@ -37,7 +37,6 @@ export class CategoryPositionsPageComponent implements OnInit, AfterViewInit, On
 
   ngOnInit() {
     this.searchFilter = this.searchRef.nativeElement.value
-    // this.searchRef.nativeElement.value = ''
     this.positions = []
 
     this.form = new FormGroup({
@@ -161,7 +160,6 @@ export class CategoryPositionsPageComponent implements OnInit, AfterViewInit, On
 
     observable$.subscribe(
       position => {
-        // this.form.disable()
         if (this.isNew) {
           MaterializeService.toast('Нова позиція буа створена')
           this.positions.push(position)
@@ -177,9 +175,6 @@ export class CategoryPositionsPageComponent implements OnInit, AfterViewInit, On
         this.form.enable()
       }
     )
-
-    
-
   }
 
   onCancel() {

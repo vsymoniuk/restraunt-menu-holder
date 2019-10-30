@@ -12,8 +12,8 @@ export class CategoryService {
 
     constructor(private http: HttpClient) { }
 
-    getAll(): Observable<Category[]> {
-        return this.http.get<Category[]>('/api/category')
+    getAll(page: string): Observable<Category[]> {
+        return this.http.get<Category[]>(`/api/category/page/${page}`)
     }
 
     getById(id: string): Observable<Category> {
@@ -29,7 +29,9 @@ export class CategoryService {
         }
         formData.append('name', name)
 
+        console.log('send file' , image);
         
+
         return this.http.post<Category>('/api/category', formData)
     }
 

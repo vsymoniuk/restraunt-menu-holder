@@ -1,0 +1,17 @@
+.page-content, 
+.page-title {
+  width: 1200px
+}
+
+.page-title .page-name {
+    position: relative;
+    top: 15px
+}
+
+
+.page-title button {
+    float: right ;
+    position: relative;
+    top: 40px
+    /* padding:  */
+  }

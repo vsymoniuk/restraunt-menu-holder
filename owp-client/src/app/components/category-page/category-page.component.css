@@ -46,3 +46,7 @@ span
 .helper-text {
   top: 1%
 }
+
+img {
+  height: 230px;
+}

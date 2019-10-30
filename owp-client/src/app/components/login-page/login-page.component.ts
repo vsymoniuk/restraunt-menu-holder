@@ -54,7 +54,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.form.enable()
       }
     )
-
   }
 
 }

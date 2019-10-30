@@ -29,7 +29,7 @@ export class SiteLayoutComponent implements OnInit {
     if (role === 'admin') {
 
       this.links.unshift({ url: '/categories', name: 'Редгуання асортименту' })
-      this.links.unshift({ url: '/staff-register', name: 'Реєстрація персоналу' })
+      this.links.unshift({ url: '/users', name: 'Користувачі' })
 
     } else if (role === 'cook') {
 

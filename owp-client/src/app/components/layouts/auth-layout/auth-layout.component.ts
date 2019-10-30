@@ -12,8 +12,6 @@ export class AuthLayoutComponent implements OnInit {
     {url: '/login', name: 'Вхід '},
     {url: '/register', name: 'Реєстрація'}
   ]
-
-
   constructor(private router: Router) { }
 
   ngOnInit() {

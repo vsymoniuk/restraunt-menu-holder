@@ -8,10 +8,20 @@ export interface Modal {
     destroy?(): void
 }
 
+export interface Tabs {
+    select?(): void
+    updateTabIndicator?(): void
+    destroy?(): void
+}
+
 export class MaterializeService {
 
     static initModal(ref: ElementRef) {
         return M.Modal.init(ref.nativeElement)
+    }
+    
+    static initTabs(ref: ElementRef) {
+        return M.Tabs.init(ref.nativeElement)
     }
 
     static updateTextInputs() {
@@ -21,5 +31,6 @@ export class MaterializeService {
     static toast(message: string) {
         M.toast({ html: message })
     }
+
 
 }

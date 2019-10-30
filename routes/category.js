@@ -5,7 +5,7 @@ const router = express.Router()
 const upload = require('../upload')
 const passport = require('passport')
 
-router.get('/', passport.authenticate('jwt', { session: false }), controller.getAll)
+router.get('/page/:page', passport.authenticate('jwt', { session: false }), controller.getAll)
 router.post('/', passport.authenticate('jwt', { session: false }), upload.single('image'), controller.create)
 router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById)
 router.delete('/:id', passport.authenticate('jwt', { session: false }), controller.delete)

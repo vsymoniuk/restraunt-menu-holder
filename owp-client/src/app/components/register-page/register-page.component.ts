@@ -39,7 +39,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
       },
       error => {
         this.form.enable()
-        MaterializeService.toast(error)
+        MaterializeService.toast(error.message)
       }
     )
   }

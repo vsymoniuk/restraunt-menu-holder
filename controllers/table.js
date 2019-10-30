@@ -3,7 +3,6 @@ const User = require('../models/User')
 
 module.exports.getAll = async function(req, res) {
     try {
-        //@todo make to show admin`s tables
         const tables = await Table.find()
         res.status(200).json(tables)
 
@@ -21,7 +20,6 @@ module.exports.create = async function(req, res) {
 
         const table = new Table({
             places: req.body.places,
-            //@todo make to show admin as user
             waiter: req.user.id,
             customer: req.user.id
         })

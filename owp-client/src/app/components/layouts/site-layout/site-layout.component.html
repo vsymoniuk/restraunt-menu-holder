@@ -5,9 +5,11 @@
       <li *ngFor="let link of links">
         <a [routerLink]="[link.url]">
         {{link.name}}
+
         <div *ngIf="link.url==='/logout'">
           <div (click)="logout($event)"></div>
         </div>
+
         </a>
       </li>
     </ul>

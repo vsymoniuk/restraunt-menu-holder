@@ -15,7 +15,8 @@ import { RegisterPageComponent } from './components/register-page/register-page.
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { OrderPageComponent } from './components/order-page/order-page.component';
 import { HistoryPageComponent } from './components/history-page/history-page.component';
-import { StaffRegisterPageComponent } from './components/staff-register-page/staff-register-page.component';
+import { StaffRegisterPageComponent } from './components/users-page/staff-register-page.component';
+import { UsersPageComponent } from './components/users-page/users-page/users-page.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { StaffRegisterPageComponent } from './components/staff-register-page/sta
     LoginPageComponent,
     OrderPageComponent,
     HistoryPageComponent,
-    StaffRegisterPageComponent
+    StaffRegisterPageComponent,
+    UsersPageComponent
   ],
   imports: [
     BrowserModule,

@@ -13,7 +13,7 @@ import { WaiterGuard } from './guards/waiter.guard';
 import { CustomerGuard } from './guards/customer.guard';
 import { HistoryPageComponent } from './components/history-page/history-page.component';
 import { OrderPageComponent } from './components/order-page/order-page.component';
-import { StaffRegisterPageComponent } from './components/staff-register-page/staff-register-page.component';
+import { StaffRegisterPageComponent } from './components/users-page/staff-register-page.component';
 import { OrderGuard } from './guards/order.guard';
 
 const routes: Routes = [
@@ -29,7 +29,9 @@ const routes: Routes = [
       {path: 'tables', component: TablePageComponent},
       {path: 'categories', canActivate: [AdminGuard] , component: CategoryPageComponent},
       {path: 'categories/:id', canActivate: [AdminGuard], component: CategoryPositionsPageComponent},
-      {path: 'staff-register', canActivate: [AdminGuard], component: StaffRegisterPageComponent},
+      {path: 'users', canActivate: [AdminGuard], component: StaffRegisterPageComponent, children: [
+        
+      ]},
       {path: 'history',  component: HistoryPageComponent},
       {path: 'order', canActivate: [OrderGuard], component: OrderPageComponent}
     ]

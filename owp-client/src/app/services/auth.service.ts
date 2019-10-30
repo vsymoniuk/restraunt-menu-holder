@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { User, LoginRes } from '../interfaces';
 import { tap } from 'rxjs/operators';
@@ -10,9 +10,6 @@ import { MaterializeService } from './materialize.service';
 })
 
 export class AuthService {
-
-    // private token = null
-    // private role = null
 
     private loginRes: LoginRes = null
 
@@ -30,27 +27,16 @@ export class AuthService {
                     ( loginRes) => {
                         localStorage.setItem('token', loginRes.token)
                         localStorage.setItem('role', loginRes.role)
-                        this.setUserData(loginRes) 
-                        // this.getUserRole()  
-                        // console.log(this.role);
-                                          
+                        this.setUserData(loginRes)                                           
                     }
                 )
             )
     }
 
-    // getUserRole(): Observable<{role: string}> {
-    //     return this.http.get<{role: string}>('/api/auth/get')
-    //     .pipe(
-    //         tap(
-    //             ({ role }) => {
-    //                 localStorage.setItem('role', role)
-    //                 this.setRole(role)  
-    //                 console.log('ssssssss',role)                     
-    //             }
-    //         )
-    //     )
-    // }
+    getUsersByRole(role: string): Observable<User[]> {
+
+        return this.http.get<User[]>(`/api/auth/${role}`)
+    }
 
     setUserData(loginRes: LoginRes) {
         this.loginRes = loginRes
@@ -69,29 +55,4 @@ export class AuthService {
         localStorage.clear()
     }
 
-    // setToken(token: string) {
-    //     this.token = token
-    // }
-
-    // setRole(role: string) {
-    //     this.role = role
-    // }
-
-    // getToken(): string {
-    //     return this.token
-    // }
-
-    // getRole(): string {
-    //     return this.role
-    // }
-
-    // isAuthenticated(): boolean {
-    //     return !!this.token
-    // }
-
-    // logout() {
-    //     this.setToken(null)
-    //     this.setRole(null)
-    //     localStorage.clear()
-    // }
 }
