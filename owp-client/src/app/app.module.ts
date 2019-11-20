@@ -17,6 +17,9 @@ import { OrderPageComponent } from './components/order-page/order-page.component
 import { HistoryPageComponent } from './components/history-page/history-page.component';
 import { StaffRegisterPageComponent } from './components/users-page/staff-register-page.component';
 import { UsersPageComponent } from './components/users-page/users-page/users-page.component';
+import { ApiComponent } from './components/api/api.component';
+import { EmptyPageComponent } from './components/empty-page/empty-page.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 @NgModule({
@@ -32,7 +35,10 @@ import { UsersPageComponent } from './components/users-page/users-page/users-pag
     OrderPageComponent,
     HistoryPageComponent,
     StaffRegisterPageComponent,
-    UsersPageComponent
+    UsersPageComponent,
+    ApiComponent,
+    EmptyPageComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

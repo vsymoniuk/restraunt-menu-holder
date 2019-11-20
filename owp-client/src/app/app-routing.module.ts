@@ -15,6 +15,9 @@ import { HistoryPageComponent } from './components/history-page/history-page.com
 import { OrderPageComponent } from './components/order-page/order-page.component';
 import { StaffRegisterPageComponent } from './components/users-page/staff-register-page.component';
 import { OrderGuard } from './guards/order.guard';
+import { ApiComponent } from './components/api/api.component';
+import { EmptyPageComponent } from './components/empty-page/empty-page.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -28,13 +31,18 @@ const routes: Routes = [
     path: '', component: SiteLayoutComponent, canActivate: [AuthGuard] ,children: [
       {path: 'tables', component: TablePageComponent},
       {path: 'categories', canActivate: [AdminGuard] , component: CategoryPageComponent},
+      {path: 'developer', canActivate: [AdminGuard] , component: ApiComponent},
+      {path: 'developer/v1',  component: EmptyPageComponent},
       {path: 'categories/:id', canActivate: [AdminGuard], component: CategoryPositionsPageComponent},
       {path: 'users', canActivate: [AdminGuard], component: StaffRegisterPageComponent, children: [
         
       ]},
       {path: 'history',  component: HistoryPageComponent},
-      {path: 'order', canActivate: [OrderGuard], component: OrderPageComponent}
+      {path: 'order', canActivate: [OrderGuard], component: OrderPageComponent},
+      { path: '**', redirectTo: '404'},
+      { path: '404',        component: NotFoundComponent },
     ]
+
   }
 ];
 

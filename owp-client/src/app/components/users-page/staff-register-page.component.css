@@ -1,17 +1,60 @@
-.page-content, 
+ .page-content, 
 .page-title {
   width: 1200px
+}
+
+body {
+  font-size: 0;
 }
 
 .page-title .page-name {
     position: relative;
     top: 15px
 }
-
+/* 
+.page-name {
+  display: inline;
+} */
 
 .page-title button {
     float: right ;
     position: relative;
     top: 40px
-    /* padding:  */
+
+  } 
+
+  .btn {
+    margin: 4px;
+  }
+
+ .container {
+   width: 1200px
+ }
+
+ li {
+   list-style: none;
+ }
+
+ ul {
+   margin-left: 0;
+   padding-left: 0;
+ }
+
+ i {
+   
+   color: #26A69A 
+  }
+
+  .inner-text {
+    margin-top: 5px;
+  }
+
+  .material-icons {
+    position: relative;
+    left: 150px;
+    cursor: pointer;
+  }
+
+  body {
+    font-size: 16px;
   }

@@ -8,6 +8,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { filter } from 'minimatch';
 import { Modal, MaterializeService } from 'src/app/services/materialize.service';
+import { error, log } from 'util';
 
 @Component({
   selector: 'app-category-positions-page',
@@ -36,6 +37,7 @@ export class CategoryPositionsPageComponent implements OnInit, AfterViewInit, On
 
 
   ngOnInit() {
+
     this.searchFilter = this.searchRef.nativeElement.value
     this.positions = []
 
@@ -50,7 +52,10 @@ export class CategoryPositionsPageComponent implements OnInit, AfterViewInit, On
       switchMap(
         (params: Params) => {
           if (params['id']) {
-            return this.categoryService.getById(params['id'])
+             this.categoryService.getById(params['id']).subscribe(
+               res => {return res},
+               err => this.router.navigate([`/404`])
+             )
           }
           return of(null)
         }

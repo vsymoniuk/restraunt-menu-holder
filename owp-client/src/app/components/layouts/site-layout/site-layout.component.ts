@@ -30,6 +30,7 @@ export class SiteLayoutComponent implements OnInit {
 
       this.links.unshift({ url: '/categories', name: 'Редгуання асортименту' })
       this.links.unshift({ url: '/users', name: 'Користувачі' })
+      this.links.unshift({ url: '/developer', name: 'API' })
 
     } else if (role === 'cook') {
 

@@ -1,40 +1,95 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { MaterializeService, Modal, Tabs } from 'src/app/services/materialize.service';
+import { User } from 'src/app/interfaces';
+import { AuthService } from 'src/app/services/auth.service';
+import { error } from 'util';
+import { Router } from '@angular/router';
+import { del } from 'selenium-webdriver/http';
+
+
+declare var M
 
 @Component({
   selector: 'app-staff-register-page',
   templateUrl: './staff-register-page.component.html',
   styleUrls: ['./staff-register-page.component.css']
 })
-export class StaffRegisterPageComponent  {
+export class StaffRegisterPageComponent implements AfterViewInit {
 
-  @ViewChild('tabs', null) modalRef: ElementRef
-  tabs: Tabs
-  role: string = null
+  // @ViewChild('tabs', null) modalRef: ElementRef
+
+  currentRole: string = 'customer'
+  users: User[] = []
+  dropdown
 
   roles = [
-    'Відвідувачі',
-    'Офіціанти',
-    'Кухарі'
+    { name: 'Відвідувачі', role: 'customer' },
+    { name: 'Офіціанти', role: 'waiter' },
+    { name: 'Кухарі', role: 'cook' }
   ]
 
-  // constructor() { }
+  constructor(private authService: AuthService,
+    private router: Router) { }
 
-  // ngOnInit() {
-  // }
+  ngOnInit() {
+  }
 
-  // ngOnDestroy() {
-  //   this.tabs.destroy()
-  // }
+  ngAfterViewInit() {
+    this.fetch()
+  }
 
-  // ngAfterViewInit() {
-  //   this.tabs = MaterializeService.initTabs(this.modalRef)
-  // }
+  private fetch() {
+    this.authService.getUsersByRole(this.currentRole).subscribe(
+      res => {
+        this.users = res
+      },
+      error => {
+        MaterializeService.toast(`Role "${this.currentRole}" does not exist!`)
+        this.router.navigate([`/404`])
+      }
+    )
+  }
 
-  // changeTab(role: string) {
-  //   this.role = role
-  //   this.tabs.destroy()
-  //   MaterializeService.initTabs(this.modalRef)
-  // }
+  deleteUser(user: User) {
+    const deleting = window.confirm(`Ви дійсно хочете видалити "${user.email}" ?`)
+
+    if (deleting) {
+      this.authService.delete(user).subscribe(
+        response => {
+          const index = this.users.findIndex(c => c._id === user._id)
+          MaterializeService.toast(`Користувач "${this.users[index].email}" був успішно видалений`)
+          this.users.splice(index, 1)
+        },
+        error => MaterializeService.toast(error.message ? error.message : error)
+      )
+    }
+  }
+
+  onTabClick(role: string) {
+    this.currentRole = role
+    this.fetch()
+  }
+
+  roleChanging(user: User, role: string) {
+    const deleting = window.confirm(`Ви дійсно хочете змінити роль "${user.email}" на "${role}" ?`)
+
+    if (deleting) {
+      user.role = role
+      this.authService.update(user).subscribe(
+        res => {
+          const index = this.users.findIndex(c => c._id === user._id)
+          MaterializeService.toast(`Користувач "${this.users[index].email}" отримав роль "${role}"!`)
+          this.users.splice(index, 1)
+        },
+        error => MaterializeService.toast(error.message ? error.message : error)
+      )
+    }
+  }
+
+  isUsers() {
+    return !(this.users.length == 0)
+  }
+
+
 
 }

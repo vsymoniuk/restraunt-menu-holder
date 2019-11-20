@@ -1,41 +1,100 @@
-<!-- <div class="page-title">
-  <div class="row">
-    <div class="col s12 m8">
-      <div class="page-name">
-        <h4>Користувачі</h4>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Untitled</title>
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+
+</head>
+
+<body>
+
+  <div class="page-title">
+    <div class="row">
+      <div class="col s12 m8">
+        <div class="page-name row">
+
+          <h4>
+            Користувачі > {{currentRole}}
+          </h4>
+        </div>
+      </div>
+      <div class="col s12 m4">
+        <button class="btn grey darken-1">Зареєструвати користувача</button>
       </div>
     </div>
-    <div class="col s12 m4">
-      <button class="btn grey darken-1">Зареєструвати користувача</button>
-    </div>
   </div>
-</div> -->
 
-<!-- 
+
+  <div class="container ">
+    <li class="nav-item row">
+      <div class="btn " *ngFor="let role of roles" (click)="onTabClick(role.role)" [ngClass]="role.name == currentRole">
+        {{role.name}}
+      </div>
+    </li>
+
+    <div class="tab-content">
+      <ul class="collection " *ngIf="isUsers(); else empty">
+        <li class="collection-item row" *ngFor="let user of users">
+
+          <div class="inner-text col s12 m8 ">
+            {{user.email}}
+          </div>
+
+          <div *ngFor="let role of roles" >
+            <div class="btn col s12 m1" *ngIf="role.role !== currentRole" (click)="roleChanging(user, role.role)" >
+              {{role.name}}
+            </div>
+          </div>
+
+          <div class='col s12 m1'><i class="inner-text material-icons" (click)="deleteUser(user)">delete</i> </div>
+
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+
+  <ng-template #empty>
+    <div class="center">Користувачів такого типу не існує</div>
+  </ng-template>
+</body>
+
+</html>
+
+
+
+
+<!--
+
 <div class="page-content">
   <div class="row" #tabs>
     <div class="col s12">
       <ul class="tabs">
         <li class="tab col s4 active" *ngFor="let role of roles" >
-          <a (click)="changeTab(role)"  > {{role.name}}</a>
+          <a (click)="changeTab(role)"  > {{role}}</a>
         </li>
       </ul>
     </div>
   </div>
-</div> -->
+</div> 
 
-<!-- <div class="row page-content">
-  <div class="col s12">
-    <ul class="tabs">
-      <li class="tab col s3"><a>Test 1</a></li>
-      <li class="tab col s3"><a class="active">Test 2</a></li>
-      <li class="tab col s3 disabled"><a>Disabled Tab</a></li>
-      <li class="tab col s3"><a>Test 4</a></li>
-    </ul>
-  </div>
-</div> -->
 
-<!-- <app-users-page
+
+<app-users-page
 [role]="this.role"
 >
 </app-users-page> -->

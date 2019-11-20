@@ -3,6 +3,10 @@ const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('../config')
 
+module.exports.getEmpty = function (req, res) {
+  res.status(200).json({})
+}
+
 module.exports.login = async function (req, res) {
 
   const futureUser = await User.findOne({
@@ -87,9 +91,52 @@ module.exports.register = async function (req, res) {
   }
 }
 
+module.exports.delete = async function (req, res) {
+  try {
+
+    await User.remove({
+      _id: req.params.id
+    })
+    res.status(200).json({
+      message: 'Category was deleted'
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message ? error.message : error
+    })
+  }
+}
+
+module.exports.update = async function (req, res) {
+  const updated = req.body
+console.log(req.body);
+
+  try {
+    const user = await User.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: updated
+    }, {
+      new: true
+    })
+    res.status(200).json(user)
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message ? error.message : error
+    })
+  }
+}
+
 module.exports.getUsers = async function (req, res) {
   try {
-    const users = await User.find({role: req.params.role})
+    const users = await User.find({
+      role: req.params.role
+    })
+    // const users = await User.find({role:'customer'})
     res.status(200).json(users)
 
   } catch (error) {
