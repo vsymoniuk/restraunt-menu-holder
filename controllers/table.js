@@ -1,5 +1,6 @@
 const Table = require('../models/Table')
 const User = require('../models/User')
+const keys = require('../config')
 
 module.exports.getAll = async function(req, res) {
     try {
@@ -34,6 +35,7 @@ module.exports.create = async function(req, res) {
         })
     }
 }
+
 
 module.exports.getById = function(req, res) {
 }

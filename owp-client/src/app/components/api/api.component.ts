@@ -9,14 +9,16 @@ export class ApiComponent implements OnInit {
 
   constructor() { }
 
- pageContent: string;
+ pageContent: string = 'authentication'
 
   API = [
     {name: 'authentication'},
+    {name: 'user'},
     {name: 'category'},
     {name: 'order'},
     {name: 'position'},
-    {name: 'table'}
+    {name: 'table'},
+    {name: 'errors'}
   ]
 
   onTabClick( name: string ) {

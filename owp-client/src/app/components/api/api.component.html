@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html>
+
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>Untitled</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
   </script>
@@ -21,22 +20,114 @@
 
 <body>
   <div class="container">
+    
     <li class="nav-item" class="nav-link active; index as index">
-      <div class="btn"  *ngFor="let api of API" (click)="onTabClick(api.name)">{{api.name}}</div></li>
+      <div class="btn" *ngFor="let api of API" (click)="onTabClick(api.name)">{{api.name}}</div>
+    </li>
 
-  <div class="tab-content">
+    <div class="tab-content">
 
-    <ul class="collection">
-      <li class="collection-item">{{pageContent}}</li>
-      <li class="collection-item">Alvin</li>
-      <li class="collection-item">Alvin</li>
-      <li class="collection-item">Alvin</li>
-    </ul>
+      <ul class="collection">
 
-  </div>
+        <li class="collection-item" *ngIf="pageContent == 'authentication'">
+          <h3>authentication</h3>
+          Для доступу до більшості апі потрібно бути авторизованим користувачем, в нашому випадку, мати в хедері
+          валідний токен типу Беарер при запиті до роутів.
+          <br> <br>
+          POST /api/auth/register - приймає емайл-адресу та рядок що містить пароль майбутнього користувача, якшо такий
+          емейл уже зареєстрований - запит повертає помилку з кодом 409 - конфлікт. В іншому випадку ми хешуємо пароль і
+          зберігаємо нашого користувача до бази даних.
+          <br> <br>
+          POST /api/auth/login - приймає емайл-адресу та рядок з паролем існуючого користувача. Якщо паролі не
+          співпадають - повертається статус 401 - неавторизований, у випадку якзо не співпадає адреса - 404 (не
+          знайдено). Якщо дані було введено коректно - повертається JWT токен який надає змогу користувачу користуватися
+          сайтом.
+        </li>
+
+        <li class="collection-item" *ngIf="pageContent == 'user'">
+          <h3>user</h3>
+          Вміст даної таби навчить вас користуватися АПІ для взаємодії з користувачами
+          <br> <br>
+          GET /api/auth/:role - повеертає масив юзерів з вказаною роллю
+          <br> <br>
+          GET /api/auth/user/:id - повертає користувача по заданому ід
+          <br> <br>
+          DELETE /api/auth/:id - видаляє користувача по заданому ід
+          <br> <br>
+          PATCH /api/auth/:id - апдейтить користувача по заданому ід
+        </li>
+
+        <li class="collection-item" *ngIf="pageContent == 'category'">
+          <h3>category</h3>
+          Тут буде описано які запити можна використовувати для взаємодії з композиційними сутностями
+          <br> <br>
+          GET /api/category/page/:page - запит використовується для того щоб отримати масив об'єктів фіксованого
+          розміру. Він приймає номер сторінки і дістає із загальної маси необхідний відрізок пропустивши (limit * page -
+          limit) елементів.
+          <br> <br>
+          GET /api/category/:id - повертає категорію по заданому ід
+          <br> <br>
+          POST /api/category/ - створення нової сутності, приймає ім'я та картинку, обробляючи форм дату npm пакетом
+          multer і відправляючи її на сервер для зберігання медіафайлів - cloudinary.
+          <br> <br>
+          PATCH /api/category/:id - апдейтить категорію по заданому ід
+          <br> <br>
+          DELETE /api/category/:id - видаляє категорію по заданому ід
+        </li>
+
+        <li class="collection-item" *ngIf="pageContent == 'order'">
+          <h3>order</h3>
+          Набір запитів, який скоріше за все ще поповниться, який допоможе вам зручно працювати з замовленнями.
+          <br> <br>
+          GET /api/order/ - повертає всі замовлення колекції
+          <br> <br>
+          POST /api/order/ - створює нове замовлення
+          <br> <br>
+          GET /api/order/:userId - повертає всі замовлення які належать конкретному користувачу
+        </li>
+
+        <li class="collection-item" *ngIf="pageContent == 'position'">
+          <h3>position</h3>
+          GET /api/position/:categoryId - приймає ІД категорії, позиції якої ми хочемо отримати, та строка з фільтром який будуть містити імена всіх позицій. Повертає список всіх отриманих сутностей.  
+          <br> <br>
+          POST /api/position/ - створює нову сутність
+          <br> <br>
+          PATCH /api/position/:id - модифікує позицію по заданому ІД
+          <br> <br>
+          DELETE /api/position/:id - видаляє позицію по заданому ІД
+        </li>
+
+        <li class="collection-item" *ngIf="pageContent == 'table'">
+          <h3>table</h3>
+          Колекція запитів, що навчать вас створювати, видаляти, апдейтити та отримувати необхідні столики.
+          <br> <br>
+          GET /api/table/ - повертає список всіх столиків
+          <br> <br>
+          GET /api/table/:id - повертає стіл по заданому ІД
+          <br> <br>
+          POST /api/table/ - створює новий столик, прийнявши кількісць місць за ним
+          <br> <br>
+          PATCH /api/table/:id - модифікує стіл по заданому ІД
+          <br> <br>
+          DELETE /api/table/:id - видаляє позицію по заданому ІД
+        </li>
+
+        <li class="collection-item" *ngIf="pageContent == 'errors'">
+          <h3>errors</h3>
+          Більшість запитів загорнуті у try[ ... ] catch (error) [ ... ], який повертає статус 500 ( внутрішня помилка
+          сервера ) і json який дає вам змогу дізнатися про її походження.
+          <br> <br>
+          401 - неавторизований, з'являється коли користувач намагається зробити запит без наявності валідного Беарер токена у відповідному хедері.
+          <br>
+          404 - не знайдено, статус повертається коли користувач задає не валідний ІД користувача, Категорії, або намагається  перейти до невідомої сторінки. 
+          <br>
+          409 - конфлікт - виникає коли користувач хоче зробити декілька акаунтів, використовуючи один і той самий емайл.
+          </li>
+
+      </ul>
+
+    </div>
 
   </div>
 
 </body>
-
-</html>

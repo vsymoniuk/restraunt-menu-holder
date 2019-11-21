@@ -90,6 +90,10 @@ export class StaffRegisterPageComponent implements AfterViewInit {
     return !(this.users.length == 0)
   }
 
-
+  myProfile() {
+    this.authService.myProfile().subscribe(
+      res => console.log(res) 
+    )
+  }
 
 }

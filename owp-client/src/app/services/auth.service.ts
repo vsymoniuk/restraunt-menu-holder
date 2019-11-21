@@ -18,28 +18,22 @@ export class AuthService {
 
     emptyJson() {
         return this.http.get<string>('/api/auth/v1')
-        // get(`/api/v1`)
     }
 
     delete(user: User): Observable<Message> {
         return this.http.delete<Message>(`/api/auth/${user._id}`)
     }
 
+    myProfile(): Observable<User> {
+        return this.http.post<User>(`/api/auth/user/`, this.getUserData())
+    }
 
     update(user: User): Observable<User> {
         return this.http.patch<User>(`/api/auth/${user._id}`, user)
     }
 
-    // getUsersByRole(params: any = {}): Observable<User[]> {
-    //     return this.http.get<User[]>(`/api/auth/${params.role}`, {
-    //         params: new HttpParams({
-    //             fromObject: params
-    //         })
-    //     }
-    // }
-
     register(user: User): Observable<User> {
-        return this.http.post<User>('/api/auth/register', user)
+        return this.http.post<User>('/api/auth/regist)er', user)
     }
 
     login(user: User): Observable<LoginRes> {

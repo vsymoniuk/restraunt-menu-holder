@@ -9,8 +9,9 @@ const DataUri = require('datauri')
 module.exports.getAll = async function (req, res) {
     try {
 
+
         const limit = +keys.pageLimit
-        const page = +req.params.page
+        const page = +req.params.page || 1
 
         const user = await User.findOne({
             role: 'admin'
@@ -25,7 +26,8 @@ module.exports.getAll = async function (req, res) {
 
         } else {
             categories = await Category.find({
-                    user: user._id
+                    user: user._id,
+                    name: {$regex: `.*(?i)${req.query.filter || ''}(?-i).*`}
                 })
                 .skip(limit * page - limit)
                 .limit(limit)

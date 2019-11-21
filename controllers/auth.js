@@ -2,6 +2,7 @@ const User = require('../models/User')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('../config')
+const keys = require('../config')
 
 module.exports.getEmpty = function (req, res) {
   res.status(200).json({})
@@ -24,7 +25,7 @@ module.exports.login = async function (req, res) {
         userId: futureUser._id,
         role: futureUser.role
       }, config.jwt, {
-        expiresIn: 60 * 60
+        expiresIn: 60 * 60 * 5
       })
 
       const decoded = jwt.decode(token)
@@ -91,6 +92,22 @@ module.exports.register = async function (req, res) {
   }
 }
 
+module.exports.getById = async function (req, res) {
+  try {
+
+    const token = req.body.token
+    const userin = jwt.decode(token.substring(7))
+    const user = await User.findById(userin.userId)
+    res.status(200).json(user)
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message ? error.message : error
+    })
+  }
+}
+
+
 module.exports.delete = async function (req, res) {
   try {
 
@@ -111,8 +128,7 @@ module.exports.delete = async function (req, res) {
 
 module.exports.update = async function (req, res) {
   const updated = req.body
-console.log(req.body);
-
+  console.log(req.body);
   try {
     const user = await User.findOneAndUpdate({
       _id: req.params.id
@@ -133,10 +149,19 @@ console.log(req.body);
 
 module.exports.getUsers = async function (req, res) {
   try {
+
+    const limit = +keys.pageLimit
+    let page = +req.query.page || 1
+
     const users = await User.find({
-      role: req.params.role
-    })
-    // const users = await User.find({role:'customer'})
+        role: req.params.role,
+        email: {
+          $regex: `.*(?i)${req.query.filter || ''}(?-i).*`
+        }
+      }).skip(limit * page - limit)
+      .limit(limit)
+
+
     res.status(200).json(users)
 
   } catch (error) {

@@ -1,3 +1,6 @@
+
+const keys = require('../config')
+
 module.exports.getAll = function(req, res) {
 }
 

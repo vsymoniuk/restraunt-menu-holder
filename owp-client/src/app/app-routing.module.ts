@@ -22,25 +22,23 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 const routes: Routes = [
   {
     path: '', component: AuthLayoutComponent, children: [
-      {path: '', redirectTo: '/login', pathMatch: 'full' },
-      {path: 'login', component: LoginPageComponent},
-      {path: 'register', component: RegisterPageComponent}
+      { path: '', redirectTo: '/login', pathMatch: 'full' },
+      { path: 'login', component: LoginPageComponent },
+      { path: 'register', component: RegisterPageComponent }
     ]
   },
   {
-    path: '', component: SiteLayoutComponent, canActivate: [AuthGuard] ,children: [
-      {path: 'tables', component: TablePageComponent},
-      {path: 'categories', canActivate: [AdminGuard] , component: CategoryPageComponent},
-      {path: 'developer', canActivate: [AdminGuard] , component: ApiComponent},
-      {path: 'developer/v1',  component: EmptyPageComponent},
-      {path: 'categories/:id', canActivate: [AdminGuard], component: CategoryPositionsPageComponent},
-      {path: 'users', canActivate: [AdminGuard], component: StaffRegisterPageComponent, children: [
-        
-      ]},
-      {path: 'history',  component: HistoryPageComponent},
-      {path: 'order', canActivate: [OrderGuard], component: OrderPageComponent},
-      { path: '**', redirectTo: '404'},
-      { path: '404',        component: NotFoundComponent },
+    path: '', component: SiteLayoutComponent, canActivate: [AuthGuard], children: [
+      { path: 'tables', component: TablePageComponent },
+      { path: 'categories', canActivate: [AdminGuard], component: CategoryPageComponent },
+      { path: 'developer', canActivate: [AdminGuard], component: ApiComponent },
+      { path: 'developer/v1', component: EmptyPageComponent },
+      { path: 'categories/:id', canActivate: [AdminGuard], component: CategoryPositionsPageComponent },
+      { path: 'users', canActivate: [AdminGuard], component: StaffRegisterPageComponent, children: [] },
+      { path: 'history', component: HistoryPageComponent },
+      { path: 'order', canActivate: [OrderGuard], component: OrderPageComponent },
+      { path: '**', redirectTo: '404' },
+      { path: '404', component: NotFoundComponent },
     ]
 
   }
