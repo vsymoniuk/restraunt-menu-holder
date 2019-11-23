@@ -20,6 +20,7 @@ import { UsersPageComponent } from './components/users-page/users-page/users-pag
 import { ApiComponent } from './components/api/api.component';
 import { EmptyPageComponent } from './components/empty-page/empty-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     UsersPageComponent,
     ApiComponent,
     EmptyPageComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ProfilePageComponent
   ],
   imports: [
     BrowserModule,

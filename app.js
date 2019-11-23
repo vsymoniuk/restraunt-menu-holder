@@ -15,10 +15,15 @@ const tableRoutes = require('./routes/table')
 const config = require('./config')
 const mongoLink = process.env["MONGO_URI"] || config.mongoURI
 
+const sgMail = require('@sendgrid/mail');
+const keys = require('./config')
+
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
+
+
 
 mongoose.connect(mongoLink)
   .then(() => console.log('Mongo connected.'))

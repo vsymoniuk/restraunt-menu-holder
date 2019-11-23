@@ -15,6 +15,15 @@ export class AuthService {
     private loginRes: LoginRes = null
 
     constructor(private http: HttpClient) { }
+    
+    emailConfirm(email: string): Observable<Message> {
+        return this.http.get<Message>(`/api/auth/confirm/${email}`)
+    }
+
+    restorePassword(password: string, code: string, email: string): Observable<Message> {
+        return this.http.post<Message>('/api/auth/restore', {password, code, email})
+    }
+
 
     emptyJson() {
         return this.http.get<string>('/api/auth/v1')
@@ -28,12 +37,13 @@ export class AuthService {
         return this.http.post<User>(`/api/auth/user/`, this.getUserData())
     }
 
+
     update(user: User): Observable<User> {
         return this.http.patch<User>(`/api/auth/${user._id}`, user)
     }
 
     register(user: User): Observable<User> {
-        return this.http.post<User>('/api/auth/regist)er', user)
+        return this.http.post<User>('/api/auth/register', user)
     }
 
     login(user: User): Observable<LoginRes> {

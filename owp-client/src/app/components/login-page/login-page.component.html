@@ -1,8 +1,4 @@
-<form 
-    class="auth-block" 
-    [formGroup]="form"
-    (ngSubmit)="onSubmit()"
->
+<form class="auth-block" [formGroup]="form" (ngSubmit)="onSubmit()">
 
   <div class="card">
 
@@ -11,43 +7,63 @@
       <span class="card-title">Увійти</span>
 
       <div class="input-field">
-        <input 
-            formControlName="email"
-            id="email" 
-            type="email"
-            [ngClass]="{'invalid': form.get('email').invalid && form.get('email').touched}" 
-        >
+        <input formControlName="email" id="email" type="email"
+          [ngClass]="{'invalid': form.get('email').invalid && form.get('email').touched}">
         <label for="email">Email:</label>
         <span class="helper-text red-text" *ngIf="form.get('email').invalid && form.get('email').touched">
-            <span *ngIf="form.get('email').errors['required']">Емейл не може бути порожнім</span>
+          <span *ngIf="form.get('email').errors['required']">Емейл не може бути порожнім</span>
         </span>
       </div>
 
       <div class="input-field">
-        <input 
-            formControlName="password"  
-            id="password" 
-            type="password"
-            [ngClass]="{'invalid': form.get('password').invalid && form.get('password').touched}" 
-        >
+        <input formControlName="password" id="password" type="password"
+          [ngClass]="{'invalid': form.get('password').invalid && form.get('password').touched}">
+        <a class="helper-text right" (click)="onPasswordRestoring()">Відновити пароль</a>
         <label for="password">Пароль:</label>
         <span class="helper-text red-text" *ngIf="form.get('password').invalid && form.get('password').touched">
-                <span *ngIf="form.get('password').errors['required']">Пароль є обов'язковим полем</span>
+          <span *ngIf="form.get('password').errors['required']">Пароль є обов'язковим полем</span>
         </span>
       </div>
 
     </div>
 
     <div class="card-action">
-        <button 
-            type="submit" 
-            class="modal-action btn waves-effect"
-            [disabled]="form.invalid || form.disabled"
-        >
+      <button type="submit" class="modal-action btn waves-effect" [disabled]="form.invalid || form.disabled">
         Увійти
-        </button>
+      </button>
     </div>
 
   </div>
 
 </form>
+
+<div class="modal" #modal>
+
+  <div *ngIf="!isEmail">
+      <h5>Введіть адресу електронної адреси</h5>
+      <div class="input-field row">
+        <input id="email" type="text" #email class="col s12 l9">
+        <label for="code">Email:</label>
+        <div class="btn col s12 l2" (click)="sendEmail()" style="float: right">OK</div>
+      </div>
+  </div>
+
+  <div *ngIf="!isTrusted && isEmail">
+    <h5>Введіть код підтвердження електронної адреси</h5>
+    <div class="input-field row">
+      <input id="code" type="number" #code  max="6" class="col s12 l9">
+      <label for="code">Код підтвердження:</label>
+      <div class="btn col s12 l2 " (click)="checkCode()" style="float: right">OK</div>
+    </div>
+  </div>
+
+  <div *ngIf="isTrusted">
+      <h5>Підтвердження успішне</h5>
+      <div class="input-field row">
+        <input id="code" type="password" #password   class="col s12 l9">
+        <label for="code">Новий пароль:</label>
+        <div class="btn col s12 l2 " (click)="resetPassword()" style="float: right">OK</div>
+      </div>
+    </div>
+
+</div>

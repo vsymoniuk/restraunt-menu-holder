@@ -121,7 +121,7 @@ export class CategoryPositionsPageComponent implements OnInit, AfterViewInit, On
 
     this.isNew = true
     this.currentPosition = null
-    this.form.reset({
+    this.form.reset({ 
       name: '',
       cost: 1
     })

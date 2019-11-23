@@ -11,6 +11,10 @@ const userSchema = new Schema( {
         type: String,
         required: true
     },
+    restoringCode: {
+        type: String,
+        default: ''
+    },
     role: {
         type: String,
         default: 'customer'

@@ -8,3 +8,13 @@
   .auth-block .card {
     width: 400px
   }
+
+  a {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .modal {
+    width: 400px;
+    padding: 1%
+  }

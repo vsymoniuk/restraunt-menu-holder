@@ -3,9 +3,84 @@ const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('../config')
 const keys = require('../config')
+const sgMail = require('@sendgrid/mail');
 
-module.exports.getEmpty = function (req, res) {
-  res.status(200).json({})
+
+
+module.exports.emailConfirm = async function (req, res) {
+  try {
+
+    sgMail.setApiKey(keys.SENDGRID_API_KEY);
+
+    let code = getRandomInt(100000, 999999)
+
+    User.findOneAndUpdate(
+    {email: req.params.email}, 
+    {restoringCode: bcryptjs.hashSync(`${code}`, bcryptjs.genSaltSync(10)) },
+    {new: true}, 
+    function (err, user) {
+      // console.log(user);
+    })
+
+
+    const msg = {
+      to: req.params.email,
+      from: 'izogid42@gmail.com',
+      subject: 'Відновлення паролю до Online Restraunt Host',
+      text: `Код для відновлення: ${code}`,
+      html: `Код для відновлення: ${code}`,
+    };
+
+    sgMail.send(msg);
+    res.status(200).json({
+      message: `${code}`
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message ? error.message : error
+    })
+  }
+}
+
+module.exports.restorePassword = async function (req, res) {
+  
+  const candidateUser = await User.findOne({email: req.body.email}) 
+
+  if(candidateUser && bcryptjs.compareSync(req.body.code, candidateUser.restoringCode)) {
+    
+    User.findOneAndUpdate(
+      {email: req.body.email}, 
+      {password: bcryptjs.hashSync(`${req.body.password}`, bcryptjs.genSaltSync(10)) },
+      {new: true}, 
+      function (err, user) {
+        // console.log(user);
+      })
+
+  } else {
+    res.status(500).json({
+      success: false,
+      message: 'Секретні ключі не співпадають!'
+    })
+  }
+
+
+  
+  
+
+  try {
+
+    res.status(200).json({
+      message: 'Пароль було успішно змінено!'
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message ? error.message : error
+    })
+  }
 }
 
 module.exports.login = async function (req, res) {
@@ -128,7 +203,7 @@ module.exports.delete = async function (req, res) {
 
 module.exports.update = async function (req, res) {
   const updated = req.body
-  console.log(req.body);
+
   try {
     const user = await User.findOneAndUpdate({
       _id: req.params.id
@@ -170,4 +245,15 @@ module.exports.getUsers = async function (req, res) {
       message: error.message ? error.message : error
     })
   }
+
+}
+
+module.exports.getEmpty = function (req, res) {
+  res.status(200).json({})
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
 }
