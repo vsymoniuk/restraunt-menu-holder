@@ -15,6 +15,14 @@ const userSchema = new Schema( {
         type: String,
         default: ''
     },
+    imageSrc: {
+        type: String,
+        default: ''
+    },
+    bio: {
+        type: String,
+        default: ''
+    },
     role: {
         type: String,
         default: 'customer'

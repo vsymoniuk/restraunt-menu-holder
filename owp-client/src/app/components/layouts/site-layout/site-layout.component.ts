@@ -16,6 +16,7 @@ export class SiteLayoutComponent implements OnInit {
 
     { url: '/tables', name: 'Столики' },
     { url: '/history', name: 'Історія'},
+    { url: '/profile', name: 'Мій профіль'},
     { url: '', name: 'Вихід' }
 
   ]

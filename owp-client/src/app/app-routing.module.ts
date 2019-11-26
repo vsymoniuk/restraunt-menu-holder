@@ -18,6 +18,7 @@ import { OrderGuard } from './guards/order.guard';
 import { ApiComponent } from './components/api/api.component';
 import { EmptyPageComponent } from './components/empty-page/empty-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'users', canActivate: [AdminGuard], component: StaffRegisterPageComponent, children: [] },
       { path: 'history', component: HistoryPageComponent },
       { path: 'order', canActivate: [OrderGuard], component: OrderPageComponent },
+      { path: 'profile',  component: ProfilePageComponent },
       { path: '**', redirectTo: '404' },
       { path: '404', component: NotFoundComponent },
     ]
