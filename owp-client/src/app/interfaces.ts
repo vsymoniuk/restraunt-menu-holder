@@ -4,6 +4,8 @@ export interface User {
   role: string
   _id?: string
   ordersList: OrderPosition[]
+  imageSrc?: string
+  bio?: string
 }
 
 export interface OrderPosition {

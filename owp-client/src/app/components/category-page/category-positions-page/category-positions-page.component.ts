@@ -19,7 +19,7 @@ export class CategoryPositionsPageComponent implements OnInit, AfterViewInit, On
 
   @Input('categoryId') categoryId: string
   @ViewChild('search', null) searchRef: ElementRef
-  positions: Position[] = []
+  positions: Position[] 
   currentCategory: Category
   searchFilter: string = ''
   currentPosition: Position

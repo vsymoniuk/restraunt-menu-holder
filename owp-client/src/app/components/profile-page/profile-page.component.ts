@@ -1,26 +1,32 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { User } from 'src/app/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
+import { MaterializeService } from 'src/app/services/materialize.service';
 
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.css']
 })
-export class ProfilePageComponent implements OnInit{
+export class ProfilePageComponent implements OnInit {
 
   @ViewChild('inputFile', null) inputFileRef: ElementRef
+  @ViewChild('bio', null) bioRef: ElementRef
   image: File
   imagePreview: string = ''
+  bio: string = ''
 
-  profile = {email: ''}
+  profile: User 
 
   constructor(private authService: AuthService) { }
 
 
   ngOnInit() {
     this.authService.myProfile().subscribe(
-      res => this.profile = res
+      res => {
+        this.profile = res
+        this.imagePreview = res.imageSrc
+      }
     )
   }
 
@@ -30,17 +36,37 @@ export class ProfilePageComponent implements OnInit{
 
   onFileUpload(event: any) {
 
-    const file = event.target.files[0]
-    this.image = file
+    // const file = event.target.files[0]
+    // this.image = file
+    this.image = event.target.files[0]
+    // const reader = new FileReader()
+
+    // // reader.onload = () => {
+    // //   this.imagePreview = reader.result as string
+    // // }
+
+    // this.imagePreview = file.name
 
 
-    const reader = new FileReader()
+    // reader.readAsDataURL(file)
 
-    reader.onload = () => {
-      this.imagePreview = reader.result as string
-    }
+  }
 
-    reader.readAsDataURL(file)
+  onSubmit() {
+
+    this.profile.imageSrc = this.imagePreview
+    this.profile.bio = this.bioRef.nativeElement.value
+
+    
+
+    this.authService.update(this.profile,this.image).subscribe(
+      res => MaterializeService.toast("Profile was succesfully updated!")
+      
+    )
+    
+
+    this.ngOnInit()
+
   }
 
 }

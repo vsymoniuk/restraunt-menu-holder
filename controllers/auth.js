@@ -203,8 +203,10 @@ module.exports.delete = async function (req, res) {
 
 module.exports.update = async function (req, res) {
   const updated = req.body
-
   try {
+
+
+    
     const user = await User.findOneAndUpdate({
       _id: req.params.id
     }, {

@@ -12,7 +12,7 @@
 </div>
 
 <div class="card-content">
-  <div class="collection">
+  <div class="collection" *ngIf="categories; else empty">
     <a *ngFor="let category of categories" (click)="getSelectedCategory(category)" class="collection-item">
       <div class="row">
         <span class="col s12 m10">
@@ -28,6 +28,10 @@
     </a>
   </div>
 </div>
+
+<ng-template #empty>
+  <div class="center">Категорії не знайдено</div>
+</ng-template>
 
 
 <ul class="pagination center">

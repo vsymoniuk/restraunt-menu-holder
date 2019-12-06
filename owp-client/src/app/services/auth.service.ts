@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { User, LoginRes, Message } from '../interfaces';
 import { tap } from 'rxjs/operators';
 import { MaterializeService } from './materialize.service';
-
+import * as cloudinaryUpload from '../../../../cloudinary'
 
 @Injectable({
     providedIn: 'root'
@@ -38,7 +38,19 @@ export class AuthService {
     }
 
 
-    update(user: User): Observable<User> {
+    update(user: User, file = null): Observable<User> {
+
+        
+        // if(file) {
+        //     cloudinaryUpload(file).then(
+        //         res => {
+        //             user.imageSrc = res.secure_url
+        //             console.log(res.secure_url)
+        //         }
+        //     )
+        // }
+        
+
         return this.http.patch<User>(`/api/auth/${user._id}`, user)
     }
 
