@@ -22,16 +22,17 @@ module.exports.emailConfirm = async function (req, res) {
       // console.log(user);
     })
 
-
     const msg = {
       to: req.params.email,
-      from: 'izogid42@gmail.com',
+      from: 'izogid43@gmail.com',
       subject: 'Відновлення паролю до Online Restraunt Host',
       text: `Код для відновлення: ${code}`,
       html: `Код для відновлення: ${code}`,
     };
 
-    sgMail.send(msg);
+    sgMail.send(msg).then(
+      console.log('ssssucces')
+    )
     res.status(200).json({
       message: `${code}`
     })

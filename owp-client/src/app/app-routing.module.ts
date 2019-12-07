@@ -31,10 +31,10 @@ const routes: Routes = [
   {
     path: '', component: SiteLayoutComponent, canActivate: [AuthGuard], children: [
       { path: 'tables', component: TablePageComponent },
-      { path: 'categories', canActivate: [AdminGuard], component: CategoryPageComponent },
+      { path: 'categories',  component: CategoryPageComponent },
       { path: 'developer', canActivate: [AdminGuard], component: ApiComponent },
       { path: 'developer/v1', component: EmptyPageComponent },
-      { path: 'categories/:id', canActivate: [AdminGuard], component: CategoryPositionsPageComponent },
+      { path: 'categories/:id',  component: CategoryPositionsPageComponent },
       { path: 'users', canActivate: [AdminGuard], component: StaffRegisterPageComponent, children: [] },
       { path: 'history', component: HistoryPageComponent },
       { path: 'order', canActivate: [OrderGuard], component: OrderPageComponent },

@@ -39,10 +39,11 @@ export class SiteLayoutComponent implements OnInit {
 
     } else if (role === 'waiter') {
 
+this.links.unshift({ url: '/categories', name: 'Меню' })
       this.links.unshift({ url: '/order', name: 'Створити замовлення' })
 
     } else if (role === 'customer') {
-
+      this.links.unshift({ url: '/categories', name: 'Меню' })
       this.links.unshift({ url: '/order', name: 'Створити замовлення' })
 
     }

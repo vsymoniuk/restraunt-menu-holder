@@ -5,5 +5,5 @@ module.exports = {
     api_key: '982431986619627',
     api_secret:  'CflvHR2wxyR2iQjeLEh7IJF6W7Q',
     pageLimit: 3,
-    SENDGRID_API_KEY:'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'
+    SENDGRID_API_KEY:'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'
 }  

@@ -21,10 +21,10 @@
         <span class="material-icons col s12 m1" (click)="onCatetorySubscribe($event, category)">
             {{isUserSubscribedToCategory(category)}}
           </span>
-        <span class="col s12 m1" (click)="onUpdateCategory($event, category)">
+        <span *ngIf="userRole === 'admin'" class="col s12 m1" (click)="onUpdateCategory($event, category)">
           Редагувати
         </span>
-        <span class="material-icons col s12 m1" (click)="onDeleteCategory($event, category)">
+        <span *ngIf="userRole === 'admin'" class="material-icons col s12 m1" (click)="onDeleteCategory($event, category)">
           delete
         </span>
       </div>

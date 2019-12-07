@@ -9,6 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { filter } from 'minimatch';
 import { Modal, MaterializeService } from 'src/app/services/materialize.service';
 import { error, log } from 'util';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-category-positions-page',
@@ -23,6 +24,8 @@ export class CategoryPositionsPageComponent implements OnInit, AfterViewInit, On
   currentCategory: Category
   searchFilter: string = ''
   currentPosition: Position
+
+  userRole = null
   
   @ViewChild('modal', null) modalRef: ElementRef
   modal: Modal
@@ -33,6 +36,7 @@ export class CategoryPositionsPageComponent implements OnInit, AfterViewInit, On
   constructor(private positionService: PositionService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
+    private authService: AuthService,
     private router: Router) { }
 
 
@@ -40,6 +44,8 @@ export class CategoryPositionsPageComponent implements OnInit, AfterViewInit, On
 
     this.searchFilter = this.searchRef.nativeElement.value
     this.positions = []
+
+    this.userRole = this.authService.getUserData().role
 
     this.form = new FormGroup({
       name: new FormControl(null, Validators.required),
