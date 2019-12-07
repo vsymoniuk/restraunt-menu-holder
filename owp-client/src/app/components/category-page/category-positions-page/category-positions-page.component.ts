@@ -53,7 +53,10 @@ export class CategoryPositionsPageComponent implements OnInit, AfterViewInit, On
         (params: Params) => {
           if (params['id']) {
              this.categoryService.getById(params['id']).subscribe(
-               res => {return res},
+               res => {
+                 this.categoryId = params['id']
+                 return res
+                },
                err => this.router.navigate([`/404`])
              )
           }
@@ -151,8 +154,11 @@ export class CategoryPositionsPageComponent implements OnInit, AfterViewInit, On
       _id: this.currentPosition ? this.currentPosition._id : '' ,
       name: this.form.value.name,
       cost: this.form.value.cost,
-      category: this.currentCategory._id
+      // category: this.currentCategory._id
+      category: this.categoryId
     }
+    console.log(this.categoryId);
+    
 
 
     if (this.isNew) {

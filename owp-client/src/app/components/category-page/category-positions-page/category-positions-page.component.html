@@ -28,7 +28,7 @@
 
 
 <div class="card-content">
-  <div class="collection" *ngIf="positions; else empty">
+  <div class="collection" >
     <a *ngFor="let position of positions" class="collection-item" (click)="onSelectPosition(position)">
       <div class="row">
         <div class="col s12 m11">
@@ -45,9 +45,7 @@
     </a>
   </div>
 </div>
-<ng-template #empty>
-  <div class="center">Позиції не знайдено</div>
-</ng-template>
+
 
 
 <form [formGroup]="form" (ngSubmit)="onFormSubmit()">

@@ -11,7 +11,19 @@ const userSchema = new Schema( {
         type: String,
         required: true
     },
+    categorySubscribes: {
+        type: [Schema.Types.ObjectId],
+        default: []
+    },
     restoringCode: {
+        type: String,
+        default: ''
+    },
+    telegramTag: {
+        type: String,
+        default: ''
+    },
+    chatId: {
         type: String,
         default: ''
     },

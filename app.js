@@ -23,6 +23,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
+// const bot = require('./telegram-bot/index')
 
 
 mongoose.connect(mongoLink)

@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 
 const Category = require('../models/Category')
 const Position = require('../models/Position')
+const User = require('../models/User')
 
 mongoose.connect(mongoLink)
     .then(() => console.log('TelegramMongo connected.'))
@@ -12,7 +13,7 @@ mongoose.connect(mongoLink)
 
 const TelegramBot = require('node-telegram-bot-api')
 
-const bot = new TelegramBot('992331136:AAGdT-RrrJCegsvagEHd55I_GkAG0cOFHF0', {
+module.exports =  bot = new TelegramBot('992331136:AAGdT-RrrJCegsvagEHd55I_GkAG0cOFHF0', {
     polling: {
         interval: 300,
         autoStart: true,
@@ -25,10 +26,33 @@ const bot = new TelegramBot('992331136:AAGdT-RrrJCegsvagEHd55I_GkAG0cOFHF0', {
 
 
 bot.onText(/\/start/, msg => {
-
-    const text = `Привіт, ${msg.from.first_name}\nОберіть команду щоб почати роботу`
-
+    const text = `Привіт, ${msg.from.first_name}\nСинхронізуйтесь з веб-додатком для отримання сповіщень`
     bot.sendMessage(msg.chat.id, text)
+})
+
+bot.onText(/\/synchronize/, msg => {
+
+    User.findOne({telegramTag: `@${msg.from.username}`})
+    .then(
+        user => {
+            if(user) {
+                user.chatId = msg.chat.id
+                User.findOneAndUpdate({_id: user._id}, {$set: user}, {new: true})
+                .then(newUser => {
+                    bot.sendMessage(msg.chat.id, `Синхронізація була проведена успішно!`)
+                })
+            } else {
+                bot.sendMessage(msg.chat.id, `Користувача з таким юзернеймом не було знайдено на  сайті.\nЗареєструйтеся або змініть дані в налаштуваннях профілю`)
+            }
+        }
+        
+    ).catch(err => console.log(err))
+
+
+    
+    
+    
+    
 })
 
 bot.onText(/\/menu/, msg => {
@@ -76,3 +100,4 @@ bot.onText(/\/c(.+)/, (msg, [source, match]) => {
     })
 
 })
+

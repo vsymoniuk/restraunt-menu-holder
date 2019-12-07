@@ -6,6 +6,10 @@ export interface User {
   ordersList: OrderPosition[]
   imageSrc?: string
   bio?: string
+  telegramTag?: string
+  chatId?:string
+  categorySubscribes?: string[] 
+ 
 }
 
 export interface OrderPosition {

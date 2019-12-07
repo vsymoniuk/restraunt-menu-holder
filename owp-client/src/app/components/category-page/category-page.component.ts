@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { CategoryService } from '../../services/category.service'
-import { Category } from '../../interfaces';
+import { Category, User } from '../../interfaces';
 import { MaterializeService, Modal } from '../../services/materialize.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -28,16 +28,20 @@ export class CategoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
   imagePreview = ''
   categoryId: string
 
+
   currentPage: number = 1
   maxPage: number = 0
   categoriesQuantity: number
-
+  user: User
 
   constructor(private categoryService: CategoryService,
     private router: Router,
     private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.myProfile().subscribe(
+      res => this.user = res
+    )
     this.userRole = this.authService.getUserData().role
 
     this.form = new FormGroup({
@@ -92,6 +96,8 @@ export class CategoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+
+
   onUpdateCategory(event: Event, category: Category) {
     this.image = null
     this.form.enable()
@@ -99,13 +105,13 @@ export class CategoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
       name: category.name
     })
     console.log(this.imagePreview);
-    
+
     this.imagePreview = category.imageSrc
     console.log(this.imagePreview);
     this.categoryId = category._id
     this.modal.open()
     MaterializeService.updateTextInputs()
-    
+
     event.stopPropagation()
 
     this.isNew = false
@@ -132,7 +138,7 @@ export class CategoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.isNew) {
       //create
-      
+
       observable$ = this.categoryService.create(this.form.value.name, this.image)
 
     } else {
@@ -143,13 +149,13 @@ export class CategoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
     observable$.subscribe(
       category => {
         if (this.isNew) {
-          
-          if(this.categories.length !== 3) this.categories.push(category)
+
+          if (this.categories.length !== 3) this.categories.push(category)
           else this.fetch()
           MaterializeService.toast('Нова категорія буа створена')
         } else {
           console.log(category);
-          
+
           const index = this.categories.findIndex(c => c._id === category._id)
           this.categories[index] = category
           // this.fetch()
@@ -172,7 +178,7 @@ export class CategoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onFileUpload(event: any) {
-    
+
     const file = event.target.files[0]
     this.image = file
 
@@ -198,6 +204,42 @@ export class CategoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
   nextPage() {
     this.currentPage++
     this.fetch()
+  }
+
+  onCatetorySubscribe(event: Event, category: Category) {
+    event.stopPropagation()
+
+    if (!this.user.telegramTag) {
+      MaterializeService.toast("Спершу введіть свій телеграм тег!")
+      this.router.navigate([`/profile`])
+    } else {
+
+      let message 
+
+      if (this.isUserSubscribedToCategory(category) === 'star_border') {
+        this.user.categorySubscribes.push(category._id)
+        message = `Тепер вам буде надходити інформація про зміни в категорії ${category.name}`
+      } else {
+        const index = this.user.categorySubscribes.findIndex(id => id === category._id)
+        this.user.categorySubscribes.splice(index, 1)
+        message = `Вам більше не надходитиме інформація про зміни в категорії ${category.name}`
+      }
+
+      this.authService.update(this.user).subscribe(
+        res => {
+          MaterializeService.toast(message)
+          this.user = res
+        }
+      )
+    }
+
+  }
+
+  isUserSubscribedToCategory(category: Category): String {
+    for (let i = 0; i < this.user.categorySubscribes.length; i++) {
+      if (this.user.categorySubscribes[i] === category._id) return 'star'
+    }
+    return 'star_border'
   }
 
 }

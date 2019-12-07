@@ -10,10 +10,12 @@ import { MaterializeService } from 'src/app/services/materialize.service';
 })
 export class ProfilePageComponent implements OnInit {
 
-  @ViewChild('inputFile', null) inputFileRef: ElementRef
+  // @ViewChild('inputFile', null) inputFileRef: ElementRef
   @ViewChild('bio', null) bioRef: ElementRef
-  image: File
-  imagePreview: string = ''
+  @ViewChild('telegramTag', null) telegramTagRef: ElementRef
+  telegramTag
+  // image: File
+  // imagePreview: string = ''
   bio: string = ''
 
   profile: User 
@@ -25,41 +27,43 @@ export class ProfilePageComponent implements OnInit {
     this.authService.myProfile().subscribe(
       res => {
         this.profile = res
-        this.imagePreview = res.imageSrc
+        // this.imagePreview = res.imageSrc
       }
     )
   }
 
-  triggerClick() {
-    this.inputFileRef.nativeElement.click()
-  }
+  // triggerClick() {
+  //   this.inputFileRef.nativeElement.click()
+  // }
 
-  onFileUpload(event: any) {
+  // onFileUpload(event: any) {
 
-    // const file = event.target.files[0]
-    // this.image = file
-    this.image = event.target.files[0]
-    // const reader = new FileReader()
+  //   // const file = event.target.files[0]
+  //   // this.image = file
+  //   this.image = event.target.files[0]
+  //   // const reader = new FileReader()
 
-    // // reader.onload = () => {
-    // //   this.imagePreview = reader.result as string
-    // // }
+  //   // // reader.onload = () => {
+  //   // //   this.imagePreview = reader.result as string
+  //   // // }
 
-    // this.imagePreview = file.name
+  //   // this.imagePreview = file.name
 
 
-    // reader.readAsDataURL(file)
+  //   // reader.readAsDataURL(file)
 
-  }
+  // }
 
   onSubmit() {
 
-    this.profile.imageSrc = this.imagePreview
+    // this.profile.imageSrc = this.imagePreview
+    if(this.profile.telegramTag !== this.telegramTagRef.nativeElement.value) this.profile.chatId = ''
     this.profile.bio = this.bioRef.nativeElement.value
+    this.profile.telegramTag = this.telegramTagRef.nativeElement.value
 
     
 
-    this.authService.update(this.profile,this.image).subscribe(
+    this.authService.update(this.profile).subscribe(
       res => MaterializeService.toast("Profile was succesfully updated!")
       
     )

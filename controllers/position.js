@@ -1,6 +1,7 @@
 const Position = require('../models/Position')
 const User = require('../models/User')
 const keys = require('../config')
+const bot = require('../telegram-bot/index')
 
 module.exports.getByCategoryId = async function (req, res) {
     try {
@@ -55,6 +56,28 @@ module.exports.update = async function (req, res) {
     }
 
     try {
+
+
+        Position.findOne({
+            _id: req.params.id
+            })
+            .then(position => {
+                User.find({})
+                    .then(users => {
+                        for (let i = 0; i < users.length; i++) {
+                            let u = users[i]
+                            for (let j = 0; j < u.categorySubscribes.length; j++) {
+
+                                if (`${u.categorySubscribes[j]}` === `${position.category}` && req.body.cost < position.cost )
+                                    sendHTML(u.chatId, `<b>SALES -${((position.cost - req.body.cost)/position.cost * 100).toFixed(2)}% </b>\nВстигніть скуштувати ${position.name} по заниженій ціні!`)
+
+
+                            }
+                        }
+                    })
+            })
+
+
         const position = await Position.findOneAndUpdate({
             _id: req.params.id
         }, {
@@ -62,6 +85,7 @@ module.exports.update = async function (req, res) {
         }, {
             new: true
         })
+
         res.status(200).json(position)
 
     } catch (error) {
@@ -88,4 +112,12 @@ module.exports.delete = async function (req, res) {
             message: error.message ? error.message : error
         })
     }
+}
+
+function sendHTML(chatId, html) {
+    const options = {
+        parse_mode: 'HTML'
+    }
+
+    bot.sendMessage(chatId, html, options)
 }
