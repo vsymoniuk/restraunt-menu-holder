@@ -1,7 +1,7 @@
 const Position = require('../models/Position')
 const User = require('../models/User')
 const keys = require('../config')
-const bot = require('../telegram-bot/index')
+const bot = require('../bot')
 
 module.exports.getByCategoryId = async function (req, res) {
     try {
@@ -119,5 +119,7 @@ function sendHTML(chatId, html) {
         parse_mode: 'HTML'
     }
 
+    // console.log(bot);
     bot.sendMessage(chatId, html, options)
+    
 }

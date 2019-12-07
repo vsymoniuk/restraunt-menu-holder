@@ -12,8 +12,7 @@
     "server": "nodemon index",
     "client-install": "npm install --prefix owp-client",
     "client": "npm run start --prefix owp-client",
-    "bot": "npm run start --prefix telegram-bot",
-    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run bot\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\" ",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run client-install && npm run build --prefix owp-client"
   },
   "repository": {
@@ -50,6 +49,7 @@
     "mongoose": "^5.7.4",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
+    "node-telegram-bot-api": "^0.40.0",
     "nodemon": "^1.19.3",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0"
