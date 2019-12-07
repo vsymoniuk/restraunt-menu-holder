@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from 'selenium-webdriver/http';
+// import { HttpClient } from 'selenium-webdriver/http';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';

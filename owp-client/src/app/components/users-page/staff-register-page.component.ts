@@ -4,7 +4,7 @@ import { User } from 'src/app/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { error } from 'util';
 import { Router } from '@angular/router';
-import { del } from 'selenium-webdriver/http';
+// import { del } from 'selenium-webdriver/http';
 
 
 declare var M
