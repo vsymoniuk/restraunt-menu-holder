@@ -15,8 +15,8 @@ export class SiteLayoutComponent implements OnInit {
   links = [
 
     { url: '/tables', name: 'Столики' },
-    { url: '/history', name: 'Історія'},
-    { url: '/profile', name: 'Мій профіль'},
+    { url: '/history', name: 'Історія' },
+    { url: '/profile', name: 'Мій профіль' },
     { url: '', name: 'Вихід' }
 
   ]
@@ -35,17 +35,17 @@ export class SiteLayoutComponent implements OnInit {
 
     } else if (role === 'cook') {
 
-      
+
 
     } else if (role === 'waiter') {
 
-this.links.unshift({ url: '/categories', name: 'Меню' })
+      this.links.unshift({ url: '/categories', name: 'Меню' })
       this.links.unshift({ url: '/order', name: 'Створити замовлення' })
-
+      this.links.unshift({ url: '/developer', name: 'API' })
     } else if (role === 'customer') {
       this.links.unshift({ url: '/categories', name: 'Меню' })
       this.links.unshift({ url: '/order', name: 'Створити замовлення' })
-
+      this.links.unshift({ url: '/developer', name: 'API' })
     }
   }
 

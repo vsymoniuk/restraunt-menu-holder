@@ -32,7 +32,7 @@ const routes: Routes = [
     path: '', component: SiteLayoutComponent, canActivate: [AuthGuard], children: [
       { path: 'tables', component: TablePageComponent },
       { path: 'categories',  component: CategoryPageComponent },
-      { path: 'developer', canActivate: [AdminGuard], component: ApiComponent },
+      { path: 'developer', component: ApiComponent },
       { path: 'developer/v1', component: EmptyPageComponent },
       { path: 'categories/:id',  component: CategoryPositionsPageComponent },
       { path: 'users', canActivate: [AdminGuard], component: StaffRegisterPageComponent, children: [] },
