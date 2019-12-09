@@ -40,7 +40,7 @@ module.exports.create = async function(req, res) {
 module.exports.getById = function(req, res) {
 }
 
-module.exports.delete = function(req, res) {
+module.exports.delete = async function(req, res) {
     try {
 
         await Table.remove({

@@ -21,8 +21,6 @@ export class SiteLayoutComponent implements OnInit {
 
   ]
 
-
-
   ngOnInit() {
 
     const role = this.authService.getUserData().role
@@ -34,14 +32,13 @@ export class SiteLayoutComponent implements OnInit {
       this.links.unshift({ url: '/developer', name: 'API' })
 
     } else if (role === 'cook') {
-
-
-
+  
     } else if (role === 'waiter') {
 
       this.links.unshift({ url: '/categories', name: 'Меню' })
       this.links.unshift({ url: '/order', name: 'Створити замовлення' })
       this.links.unshift({ url: '/developer', name: 'API' })
+
     } else if (role === 'customer') {
       this.links.unshift({ url: '/categories', name: 'Меню' })
       this.links.unshift({ url: '/order', name: 'Створити замовлення' })
