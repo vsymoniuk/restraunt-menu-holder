@@ -50,3 +50,7 @@ span
 img {
   height: 230px;
 }
+
+.material-icons {
+  cursor: pointer;
+}

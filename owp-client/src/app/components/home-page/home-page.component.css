@@ -1,0 +1,9 @@
+.card {
+    width: 600px;
+}
+.material-icons {
+    position: relative;
+    left: 5px;
+    top: 5px;
+}
+

@@ -29,7 +29,6 @@ export class SiteLayoutComponent implements OnInit {
 
       this.links.unshift({ url: '/categories', name: 'Редагування асортименту' })
       this.links.unshift({ url: '/users', name: 'Користувачі' })
-      this.links.unshift({ url: '/developer', name: 'API' })
 
     } else if (role === 'cook') {
   
@@ -37,14 +36,15 @@ export class SiteLayoutComponent implements OnInit {
 
       this.links.unshift({ url: '/categories', name: 'Меню' })
       this.links.unshift({ url: '/order', name: 'Створити замовлення' })
-      this.links.unshift({ url: '/developer', name: 'API' })
 
     } else if (role === 'customer') {
       this.links.unshift({ url: '/categories', name: 'Меню' })
       this.links.unshift({ url: '/order', name: 'Створити замовлення' })
-      this.links.unshift({ url: '/developer', name: 'API' })
     }
+    this.links.unshift({ url: '/developer', name: 'API' })
+    this.links.unshift({ url: '/home', name: 'Домашня сторінка'})
   }
+
 
   logout(event: Event) {
     event.preventDefault()

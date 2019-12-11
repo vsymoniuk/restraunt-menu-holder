@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class AuthLayoutComponent implements OnInit {
 
   links = [
+    {url: '/home-auth', name: 'Домашня сторінка'},
     {url: '/login', name: 'Вхід '},
     {url: '/register', name: 'Реєстрація'}
   ]

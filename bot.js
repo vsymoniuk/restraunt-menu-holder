@@ -55,6 +55,15 @@ bot.onText(/\/synchronize/, msg => {
     
 })
 
+bot.onText(/\/help (.+)/, (msg, [source, match]) => {
+    // const {
+    //     id
+    // } = msg.chat
+    console.log(match);
+    
+    // bot.sendMessage(id, JSON.stringify(match, null, 4))
+})
+
 bot.onText(/\/menu/, msg => {
 
     sendAllCategories(msg.chat.id)

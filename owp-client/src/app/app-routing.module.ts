@@ -19,13 +19,15 @@ import { ApiComponent } from './components/api/api.component';
 import { EmptyPageComponent } from './components/empty-page/empty-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
 
 const routes: Routes = [
   {
     path: '', component: AuthLayoutComponent, children: [
       { path: '', redirectTo: '/login', pathMatch: 'full' },
       { path: 'login', component: LoginPageComponent },
-      { path: 'register', component: RegisterPageComponent }
+      { path: 'register', component: RegisterPageComponent },
+      { path: 'home-auth', component: HomePageComponent}
     ]
   },
   {
@@ -39,6 +41,7 @@ const routes: Routes = [
       { path: 'history', component: HistoryPageComponent },
       { path: 'order', canActivate: [OrderGuard], component: OrderPageComponent },
       { path: 'profile',  component: ProfilePageComponent },
+      { path: 'home', component: HomePageComponent},
       { path: '**', redirectTo: '404' },
       { path: '404', component: NotFoundComponent },
     ]

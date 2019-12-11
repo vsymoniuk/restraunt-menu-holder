@@ -21,6 +21,7 @@ import { ApiComponent } from './components/api/api.component';
 import { EmptyPageComponent } from './components/empty-page/empty-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
     ApiComponent,
     EmptyPageComponent,
     NotFoundComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
