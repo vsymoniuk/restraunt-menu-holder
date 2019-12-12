@@ -58,24 +58,33 @@ module.exports.update = async function (req, res) {
     try {
 
 
+        // Position.findOne({
+        //     _id: req.params.id
+        //     })
+        //     .then(position => {
+        //         User.find({})
+        //             .then(users => {
+        //                 for (let i = 0; i < users.length; i++) {
+        //                     let u = users[i]
+        //                     for (let j = 0; j < u.categorySubscribes.length; j++) {
+        //                         if (`${u.categorySubscribes[j]}` === `${position.category}` && req.body.cost < position.cost )
+        //                             sendHTML(u.chatId, `<b>SALES -${((position.cost - req.body.cost)/position.cost * 100).toFixed(2)}% </b>\nВстигніть скуштувати ${position.name} по заниженій ціні!`)
+        //                     }
+        //                 }
+        //             })
+        //     })
+
         Position.findOne({
             _id: req.params.id
+        }).then(position => {
+             User.find({categorySubscribes: `${position.category}`})
+            .then(subscribedUsers => {
+                for(let i = 0;i < subscribedUsers.length;i++){
+                    if(req.body.cost < position.cost && subscribedUsers[i].chatId) 
+                    sendHTML(subscribedUsers[i].chatId, `<b>SALES -${((position.cost - req.body.cost)/position.cost * 100).toFixed(2)}% </b>\nВстигніть скуштувати ${position.name} по заниженій ціні!`)
+                }
             })
-            .then(position => {
-                User.find({})
-                    .then(users => {
-                        for (let i = 0; i < users.length; i++) {
-                            let u = users[i]
-                            for (let j = 0; j < u.categorySubscribes.length; j++) {
-
-                                if (`${u.categorySubscribes[j]}` === `${position.category}` && req.body.cost < position.cost )
-                                    sendHTML(u.chatId, `<b>SALES -${((position.cost - req.body.cost)/position.cost * 100).toFixed(2)}% </b>\nВстигніть скуштувати ${position.name} по заниженій ціні!`)
-
-
-                            }
-                        }
-                    })
-            })
+        })
 
 
         const position = await Position.findOneAndUpdate({
