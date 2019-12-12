@@ -55,7 +55,7 @@ export class CategoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.categoryService.getAll('-1').subscribe(
       categories => this.categoriesQuantity = categories.length,
       error => MaterializeService.toast(error.error.message),
-      () => this.maxPage = Math.ceil(this.categoriesQuantity / 3)
+      () => this.maxPage = Math.ceil(this.categoriesQuantity / 4)
     )
 
     this.categoryService.getAll(this.currentPage.toString()).subscribe(
@@ -150,7 +150,7 @@ export class CategoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
       category => {
         if (this.isNew) {
 
-          if (this.categories.length !== 3) this.categories.push(category)
+          if (this.categories.length !== 4) this.categories.push(category)
           else this.fetch()
           MaterializeService.toast('Нова категорія буа створена')
         } else {
